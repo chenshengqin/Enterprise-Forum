@@ -53,6 +53,22 @@ public interface PostRepository {
 	Post update(Post post, long id);
 	
 	/**
+	 * 更新跟帖
+	 * @param post
+	 * @param id
+	 * @return
+	 */
+	Post updateFollow(Post post, long id);
+	
+	/**
+	 * 更新点击
+	 * @param post
+	 * @param id
+	 * @return
+	 */
+	Post updateClick(Post post, long id);
+	
+	/**
 	 * 分页展示
 	 * @param pageNo
 	 * @param pageSize

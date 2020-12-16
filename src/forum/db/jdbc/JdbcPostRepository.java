@@ -35,7 +35,9 @@ public class JdbcPostRepository implements PostRepository {
 	private static final String SELECT_POST_BY_POSTER_ID_TOPPED = SELECT_POST + " and pt.id=? and pt.topped=1 order by p.postedTime desc";
 	private static final String SELECT_POST_BY_POSTER_ID_UNTOPPED = SELECT_POST + " and pt.id=? and pt.topped=0 order by p.postedTime desc";
 	
-	private static final String UPDATE_POST = "update Post set postname=?, message=?, postedTime=? where id=?";
+	private static final String UPDATE_POST = "update Post set postname=?, message=?, postedTime=? where deleted=0 and id=?";
+	private static final String UPDATE_POST_FOLLOW = "update Post set follow=? where deleted=0 and id=?";
+	private static final String UPDATE_POST_CLICK = "update Post set click=? where deleted=0 and id=?";
 	
 	private static final String SELECT_PAGE_POSTS_TOPPED = SELECT_POST + " and pt.topped=1 order by p.postedTime desc limit ? offset  ?";
 	private static final String SELECT_PAGE_POSTS_UNTOPPED = SELECT_POST + " and pt.topped=0 order by p.postedTime desc limit ? offset  ?";
@@ -107,6 +109,18 @@ public class JdbcPostRepository implements PostRepository {
 		items.addAll(jdbc.query(SELECT_PAGE_POSTS_UNTOPPED, new PostRowMapper()));
 		PaginationSupport<Post> p = new PaginationSupport<Post>(items, totalCount, pageSize, startIndex);
 		return p;
+	}
+
+	@Override
+	public Post updateFollow(Post post, long id) {
+		jdbc.update(UPDATE_POST_FOLLOW, post.getFollow(), id);
+		return post;
+	}
+
+	@Override
+	public Post updateClick(Post post, long id) {
+		jdbc.update(UPDATE_POST_CLICK, post.getClick(), id);
+		return post;
 	}
 
 }
