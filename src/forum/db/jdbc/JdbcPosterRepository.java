@@ -25,7 +25,7 @@ public class JdbcPosterRepository implements PosterRepository {
 		this.jdbc = jdbc;
 	}
 	
-	private static final String INSERT_POSTER = "insert into Poster (username, password, truename, email) values (?, ?, ?, ?)";
+	private static final String INSERT_POSTER = "insert into Poster (username, password, truename, email, locked, deleted) values (?, ?, ?, ?, ? ,?)";
 	
 	private static final String SELECT_POSTER = "select id, username, truename, email, locked, deleted from Poster";
 	
@@ -47,7 +47,7 @@ public class JdbcPosterRepository implements PosterRepository {
 
 	@Override
 	public Poster save(Poster poster) {
-		jdbc.update(INSERT_POSTER, poster.getUserName(), poster.getPassword(), poster.getTrueName(), poster.getEmail());
+		jdbc.update(INSERT_POSTER, poster.getUserName(), poster.getPassword(), poster.getTrueName(), poster.getEmail(), poster.getLocked(), poster.getDeleted());
 		return poster;
 	}
 

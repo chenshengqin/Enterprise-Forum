@@ -3,7 +3,7 @@
 <%@ page session="true" %>
 <html>
   <head>
-    <title>企业论坛</title>
+    <title>主页</title>
 	<c:import url="Banner.jsp"></c:import><hr>
     <link rel="stylesheet" 
           type="text/css" 
@@ -17,7 +17,7 @@
     	</c:when>
     	<c:otherwise>
     		<a href="<c:url value="/login" />">登录</a> |
-    		<a href="<c:url value="/spitter/register" />">注册</a> |
+    		<a href="<c:url value="/poster/register" />">注册</a> |
     	</c:otherwise>
     </c:choose>
     <a href="<c:url value="/manager" />">管理</a>
@@ -33,18 +33,19 @@
               <fmt:formatDate value="${post.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
               by <c:out value="${post.poster.userName}" />
             </div>
-            <div class="clickTimes"><c:out value="${post.click}" /></div>
-            <div class="replyTimes"><c:out value="${post.follow}" /></div>
+            点击次数：<div class="clickTimes"><c:out value="${post.click}" /></div>
+             回帖数：<div class="replyTimes"><c:out value="${post.follow}" /></div>
+              | <a href="<c:url value="/posts/${post.id}" />">查看</a>
           </li>
         </c:forEach>
       </ul>
       </div>
     	每页${paginationSupport.pageSize}条主题帖，  第${paginationSupport.currentPageNo}/${paginationSupport.totalPageCount}页,共${paginationSupport.totalCount}条主题帖
       <c:if test="${paginationSupport.previousPage}">
-      	<a href="<c:url value="/posts?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
+      	<a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
       </c:if>
       <c:if test="${paginationSupport.nextPage}">
-      	<a href="<c:url value="/posts?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
+      	<a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
       </c:if>
     
     <hr><c:import url="Footer.jsp"></c:import>
