@@ -61,10 +61,14 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{postId}", method = RequestMethod.GET)
-	public String post(@PathVariable("postId") long postId, Model model) {
+	public String post(@PathVariable("postId") long postId, Model model,
+						@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+						@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 		//TODO
 		//解决查看主题回帖的问题
+		
 		model.addAttribute(postRepository.findOne(postId));
+		model.addAttribute("paginationSupport", replyRepository.findPage(pageNo, pageSize));
 		return "post";
 	}
 

@@ -8,8 +8,8 @@
 <title>Banner</title>
 </head>
 <body>
-<img src="image/java.png"><br>
-	<h1>欢迎来到论坛
+<img src="image/java.png">
+	<h1>企业论坛
      <c:if test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
     	，<c:out value="${poster.trueName}" /><br/>
     </c:if>

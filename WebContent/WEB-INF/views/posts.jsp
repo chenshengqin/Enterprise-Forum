@@ -15,13 +15,15 @@
   <body>
     <div class="postForm">
       <h1>新建主题帖</h1> 
-      <form method="POST" name="postForm">
-      	<input type="text" name="postName" />
-        <textarea name="message" cols="80" rows="5"></textarea><br/><br/>
+      <form method="POST" name="postForm" >
+      	主题：<br/><textarea name="postName" cols="80" rows="1" ></textarea><br/>
+        内容：<br/><textarea name="message" cols="80" rows="5"></textarea><br/><br/>
         <input type="submit" value="发表主题帖" />
       </form>
     </div>
     <a href="<c:url value="/" />">返回首页</a>
+
+	<hr>
     <div class="postList">
       <h1>最近主题</h1>
       <ul class="postList">
@@ -44,6 +46,7 @@
       <c:if test="${paginationSupport.nextPage}">
       	<a href="<c:url value="/posts?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
       </c:if>
+    
       
       <hr><c:import url="Footer.jsp"></c:import>
   </body>

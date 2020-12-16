@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import forum.db.PostRepository;
 import forum.db.PosterRepository;
 import forum.entity.Poster;
 
@@ -26,7 +27,7 @@ public class HomeController {
 
 	@Autowired // 自动注入资源
 	private PosterRepository posterRepository;
-
+	private PostRepository postRepository;
 	/**
 	 * 首页
 	 * 
@@ -34,7 +35,8 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(method = GET) // 相应的请求方法
-	public String home(Model model) {
+	public String home(Model model, @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 		/*
 		 * 依据WebConfig.viewResolver中的
 		 * org.springframework.web.servlet.view.InternalResourceViewResolver定义
@@ -47,6 +49,7 @@ public class HomeController {
 		 * 返回相应jsp视图，即返回/WEB-INF/views/home.jsp
 		 * 
 		 */
+		//model.addAttribute("paginationSupport", postRepository.findPage(pageNo, pageSize));
 		return "home";
 	}
 

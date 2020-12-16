@@ -37,7 +37,7 @@ create table Manager (
 	email varchar(30),
 	deleted boolean not null
 );
-insert into Manager (username, password, fullname, email, phoneNo, deleteNo) values (
+insert into Manager (username, password, truename, email, deleted) values (
 	'admin',
 	'123456',
 	'adminname',

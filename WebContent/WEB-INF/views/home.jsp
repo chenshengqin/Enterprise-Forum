@@ -1,4 +1,5 @@
 ﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page session="true" %>
 <html>
   <head>
@@ -20,6 +21,7 @@
     	</c:otherwise>
     </c:choose>
     <a href="<c:url value="/manager" />">管理</a>
+    
     
     <hr><c:import url="Footer.jsp"></c:import>
   </body>

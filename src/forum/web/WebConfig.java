@@ -75,7 +75,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 				.excludePathPatterns("/manager/register");// excludePathPatterns 排除拦截
 		*/
 
-		super.addInterceptors(registry);
+		//super.addInterceptors(registry);
 	}
 
 }
