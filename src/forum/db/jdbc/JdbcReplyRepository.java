@@ -33,7 +33,7 @@ public class JdbcReplyRepository implements ReplyRepository {
 	private static final String SELECT_REPLY_BY_POST_ID = SELECT_REPLY + " and r.postId=?";
 	private static final String SELECT_PAGE_REPLYS_BY_POST_ID = SELECT_REPLY_BY_POST_ID + " order by r.postedTime desc limit ? offset  ?";
 	
-	private static final String DELETE_REPLY = "update Reply set deleted = 1";
+	private static final String DELETE_REPLY = "update Reply set deleted = true";
 	
 	private static class ReplyRowMapper implements RowMapper<Reply> {
 		public Reply mapRow(ResultSet rs, int rowNum) throws SQLException {
