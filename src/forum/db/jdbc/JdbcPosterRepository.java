@@ -29,7 +29,7 @@ public class JdbcPosterRepository implements PosterRepository {
 	
 	private static final String SELECT_POSTER = "select id, username, password, truename, email, locked, deleted from Poster";
 	
-	private static final String SELECT_PAGE_POSTERS = SELECT_POSTER + " where deleted=false limit ? offset  ?";
+	private static final String SELECT_PAGE_POSTERS = SELECT_POSTER + " where deleted=false limit ? offset ?";
 	
 	private static final String DELETE_POSTER = "update Poster set deleted = true";
 

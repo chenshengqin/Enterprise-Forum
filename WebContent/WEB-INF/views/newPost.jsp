@@ -24,6 +24,6 @@
     </div>
     <a href="<c:url value="/" />">返回首页</a>
       
-    <hr><c:import url="Footer.jsp"></c:import>
+    <c:import url="Footer.jsp"></c:import>
   </body>
 </html>

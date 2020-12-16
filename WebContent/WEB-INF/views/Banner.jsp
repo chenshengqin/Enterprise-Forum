@@ -8,14 +8,16 @@
 <title>Banner</title>
 </head>
 <body>
-<img src="image/java.png">
+<img src="/EnterpriseForumSystem/image/java.png">
 	<h1>企业论坛
-     <c:if test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
-    	，欢迎！用户<c:out value="${poster.trueName}" /><br/>
-    </c:if>
-    <c:if test = "${empty sessionScope.poster}">
+	<c:choose>
+      <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
+      	，欢迎！用户<c:out value="${poster.trueName}" /><br/>
+      </c:when>
+      <c:otherwise>
     	，欢迎！游客<br/>
-    </c:if>
+      </c:otherwise>
+    </c:choose>
     </h1>
     <hr>
 </body>
