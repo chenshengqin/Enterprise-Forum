@@ -55,18 +55,16 @@ public interface PostRepository {
 	/**
 	 * 更新跟帖
 	 * @param post
-	 * @param id
 	 * @return
 	 */
-	void updateFollow(long id);
+	void updateFollow(Post post);
 	
 	/**
 	 * 更新点击
 	 * @param post
-	 * @param id
 	 * @return
 	 */
-	void updateClick(long id);
+	void updateClick(Post post);
 	
 	/**
 	 * 分页展示

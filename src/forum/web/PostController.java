@@ -86,9 +86,11 @@ public class PostController {
 						@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 		//TODO
 		//解决查看主题回帖的问题
-		postRepository.updateClick(postId);
-		model.addAttribute(postRepository.findOne(postId));
-		model.addAttribute("paginationSupport", replyRepository.findPage(pageNo, pageSize));
+		Post post = postRepository.findOne(postId);
+		post.setClick(post.getClick() + 1);
+		postRepository.updateClick(post);
+		model.addAttribute(post);
+		model.addAttribute("paginationSupport", replyRepository.findPage(postId, pageNo, pageSize));
 		return "post";
 	}
 
