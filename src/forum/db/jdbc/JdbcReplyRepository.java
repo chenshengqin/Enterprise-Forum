@@ -66,7 +66,7 @@ public class JdbcReplyRepository implements ReplyRepository {
 	@Override
 	public Reply save(Reply reply) {
 		jdbc.update(INSERT_REPLY, reply.getPoster(), reply.getPostId(), reply.getMessage(), reply.getPostedTime());
-		return null;
+		return reply;
 	}
 
 	@Override

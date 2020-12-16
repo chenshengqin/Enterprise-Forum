@@ -58,7 +58,7 @@ public interface PostRepository {
 	 * @param id
 	 * @return
 	 */
-	Post updateFollow(Post post, long id);
+	void updateFollow(long id);
 	
 	/**
 	 * 更新点击
@@ -66,7 +66,7 @@ public interface PostRepository {
 	 * @param id
 	 * @return
 	 */
-	Post updateClick(Post post, long id);
+	void updateClick(long id);
 	
 	/**
 	 * 分页展示
