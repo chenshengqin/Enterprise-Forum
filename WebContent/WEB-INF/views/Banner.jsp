@@ -11,7 +11,10 @@
 <img src="image/java.png">
 	<h1>企业论坛
      <c:if test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
-    	，<c:out value="${poster.trueName}" /><br/>
+    	，欢迎！用户<c:out value="${poster.trueName}" /><br/>
+    </c:if>
+    <c:if test = "${empty sessionScope.poster}">
+    	，欢迎！游客<br/>
     </c:if>
     </h1>
 </body>

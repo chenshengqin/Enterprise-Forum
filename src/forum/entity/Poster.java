@@ -35,11 +35,8 @@ public class Poster {
 	@NotNull
 	@Email
 	private String email;
-		
-	@NotNull
+	
 	private Boolean locked;
-		
-	@NotNull
 	private Boolean deleted;
 
 	/**
