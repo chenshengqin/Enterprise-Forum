@@ -74,7 +74,7 @@ public interface ManagerRepository {
 	 * @param phoneNo	更新的电话
 	 * @return
 	 */
-	Manager updateProfile(String userName, String password, String tureName, String email, String phoneNo);
+	Manager updateProfile(String userName, String password, String trueName, String email, String phoneNo);
 	
 	/**
 	 * 根据用户名，删除某个管理员
