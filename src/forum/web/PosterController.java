@@ -73,7 +73,6 @@ public class PosterController {
 			System.out.println("Poster Null.");
 		}
 		//session.setAttribute("poster", poster);
-
 		// System.out.println(poster.getId());
 		// return "redirect:/login" ;
 		return "redirect:/poster/" + poster.getUserName();

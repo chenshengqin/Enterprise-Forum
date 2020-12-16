@@ -8,7 +8,7 @@
 <title>Banner</title>
 </head>
 <body>
-<img src="image/java.png">
+<img src="/EnterpriseForumSystem/image/java.png">
 	<h1>企业论坛
 	<c:choose>
       <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
