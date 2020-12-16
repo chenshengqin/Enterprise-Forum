@@ -112,15 +112,13 @@ public class JdbcPostRepository implements PostRepository {
 	}
 
 	@Override
-	public void updateFollow(long id) {
-		Post post = findOne(id);
-		jdbc.update(UPDATE_POST_FOLLOW, post.getFollow() + 1, id);
+	public void updateFollow(Post post) {
+		jdbc.update(UPDATE_POST_FOLLOW, post.getFollow(), post.getId());
 	}
 
 	@Override
-	public void updateClick(long id) {
-		Post post = findOne(id);
-		jdbc.update(UPDATE_POST_CLICK, post.getClick() + 1, id);
+	public void updateClick(Post post) {
+		jdbc.update(UPDATE_POST_CLICK, post.getClick(), post.getId());
 	}
 
 }

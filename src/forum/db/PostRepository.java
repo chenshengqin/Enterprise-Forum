@@ -54,17 +54,27 @@ public interface PostRepository {
 	
 	/**
 	 * 更新跟帖
+<<<<<<< HEAD
 	 * 
 	 * @param id postId
+=======
+	 * @param post
+	 * @return
+>>>>>>> e98d710682592b6e4b8cbdf993651d1c06566266
 	 */
-	void updateFollow(long id);
+	void updateFollow(Post post);
 	
 	/**
 	 * 更新点击
+<<<<<<< HEAD
 	 * 
 	 * @param id postId
+=======
+	 * @param post
+	 * @return
+>>>>>>> e98d710682592b6e4b8cbdf993651d1c06566266
 	 */
-	void updateClick(long id);
+	void updateClick(Post post);
 	
 	/**
 	 * 分页展示
