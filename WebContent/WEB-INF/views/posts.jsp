@@ -22,32 +22,7 @@
       </form>
     </div>
     <a href="<c:url value="/" />">返回首页</a>
-
-	<hr>
-    <div class="postList">
-      <h1>最近主题</h1>
-      <ul class="postList">
-        <c:forEach items="${paginationSupport.items}" var="post" >
-          <li id="post_<c:out value="${post.id}"/>">
-            <div class="postName"><c:out value="${post.postName}" /></div>
-            <div class="postMessage"><c:out value="${post.message}" /></div>
-            <div class="postTime">
-              <fmt:formatDate value="${post.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-              by <c:out value="${post.poster.userName}" />
-            </div>
-          </li>
-        </c:forEach>
-      </ul>
-      </div>
-    	每页${paginationSupport.pageSize}条主题帖，  第${paginationSupport.currentPageNo}/${paginationSupport.totalPageCount}页,共${paginationSupport.totalCount}条主题帖
-      <c:if test="${paginationSupport.previousPage}">
-      	<a href="<c:url value="/posts?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
-      </c:if>
-      <c:if test="${paginationSupport.nextPage}">
-      	<a href="<c:url value="/posts?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
-      </c:if>
-    
       
-      <hr><c:import url="Footer.jsp"></c:import>
+    <hr><c:import url="Footer.jsp"></c:import>
   </body>
 </html>

@@ -31,6 +31,7 @@ public class PostController {
 
 	@Autowired
 	private PostRepository postRepository;
+	@Autowired
 	private ReplyRepository replyRepository;
 
 	/**
@@ -39,6 +40,7 @@ public class PostController {
 	 * @param count
 	 * @return
 	 */
+	/*
 	@RequestMapping(method = RequestMethod.GET)
 	public PaginationSupport<Post> posts(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
@@ -51,7 +53,25 @@ public class PostController {
 		 * pageNo, pageSize)); return "posts";
 		 * 
 		 */
+	//}
+	
+	/**
+	 * 主题帖列表
+	 * 
+	 * @param count
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public String posts(Model model,
+			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+
+		
+		 model.addAttribute("paginationSupport", postRepository.findPage(pageNo, pageSize));
+		 return "posts";
+		 
 	}
+	
 
 	/**
 	 * 查看单个主题
