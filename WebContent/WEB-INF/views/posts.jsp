@@ -8,7 +8,7 @@
 <html>
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>主题帖</title>
+    <title>新建主题帖</title>
     <c:import url="Banner.jsp"></c:import><hr>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style.css" />" >
   </head>

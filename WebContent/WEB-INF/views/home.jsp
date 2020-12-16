@@ -29,11 +29,12 @@
         <c:forEach items="${paginationSupport.items}" var="post" >
           <li id="post_<c:out value="${post.id}"/>">
             <div class="postName"><c:out value="${post.postName}" /></div>
-            <div class="postMessage"><c:out value="${post.message}" /></div>
             <div class="postTime">
               <fmt:formatDate value="${post.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
               by <c:out value="${post.poster.userName}" />
             </div>
+            <div class="clickTimes"><c:out value="${post.click}" /></div>
+            <div class="replyTimes"><c:out value="${post.follow}" /></div>
           </li>
         </c:forEach>
       </ul>
