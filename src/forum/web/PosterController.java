@@ -70,7 +70,7 @@ public class PosterController {
 		poster = posterRepository.save(poster);
 		// session.setAttribute("poster", poster);
 
-		// System.out.println(spitter.getId());
+		// System.out.println(poster.getId());
 		// return "redirect:/login" ;
 		return "redirect:/poster/" + poster.getUserName();
 	}
