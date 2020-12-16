@@ -1,0 +1,14 @@
+ 
+# Java class files
+*.class
+ 
+# Eclipse project files
+.classpath
+.project
+.DS_Store
+.settings/
+local.properties
+.loadpath
+.recommenders
+*.launch
+.factorypath
