@@ -69,7 +69,7 @@ public class PosterController {
 		poster.setLocked(false);
 		poster.setDeleted(false);
 		poster = posterRepository.save(poster);
-		session.setAttribute("poster", poster);
+		//session.setAttribute("poster", poster);
 
 		// System.out.println(poster.getId());
 		// return "redirect:/login" ;

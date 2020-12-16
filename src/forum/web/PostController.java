@@ -61,15 +61,10 @@ public class PostController {
 	 * @param count
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public String posts(Model model,
-			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-
+	@RequestMapping(value = "/newPost", method = RequestMethod.GET)
+	public String posts(Model model) {
 		
-		 model.addAttribute("paginationSupport", postRepository.findPage(pageNo, pageSize));
-		 return "posts";
-		 
+		 return "newPost";
 	}
 	
 
@@ -104,12 +99,12 @@ public class PostController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/newPost", method = RequestMethod.POST)
 	public String savePost(HttpServletRequest request, PostForm form, Model model, HttpSession session)
 			throws Exception {
 		postRepository
 				.save(new Post(null, (Poster) session.getAttribute("poster"), form.getPostName(), form.getMessage(), new Date()));
-		return "redirect:/posts";
+		return "redirect:/home";
 	}
 	
 	/**

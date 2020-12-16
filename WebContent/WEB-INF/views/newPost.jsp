@@ -9,10 +9,11 @@
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>新建主题帖</title>
-    <c:import url="Banner.jsp"></c:import><hr>
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style.css" />" >
   </head>
   <body>
+  <c:import url="Banner.jsp"></c:import>
+  
     <div class="postForm">
       <h1>新建主题帖</h1> 
       <form method="POST" name="postForm" >

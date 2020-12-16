@@ -28,7 +28,7 @@ public class JdbcReplyRepository implements ReplyRepository {
 	
 	private static final String INSERT_REPLY = "insert into Reply (poster, postId, message, postedTime, deleted) values (?, ?, ?, ?, ?)";
 	
-	private static final String SELECT_REPLY = "select r.id, pt.id as posterId, pt.username, pt.password, pt.truename, pt.email, r.postId, r.message, r.postedTime, r.deleted from Reply r, Poster pt where r.poster=pt.id and r.deleted=0";
+	private static final String SELECT_REPLY = "select r.id, pt.id as posterId, pt.username, pt.password, pt.truename, pt.email, r.postId, r.message, r.postedTime, r.deleted from Reply r, Poster pt where r.poster=pt.id and r.deleted=false";
 	private static final String SELECT_REPLY_BY_ID = SELECT_REPLY + " and r.id=?";
 	private static final String SELECT_REPLY_BY_POST_ID = SELECT_REPLY + " and r.postId=?";
 	private static final String SELECT_PAGE_REPLYS_BY_POST_ID = SELECT_REPLY_BY_POST_ID + " order by r.postedTime desc limit ? offset  ?";
@@ -50,7 +50,7 @@ public class JdbcReplyRepository implements ReplyRepository {
 	
 	@Override
 	public long count() {
-		return jdbc.queryForLong("select count(id) from Reply where deleted=0");
+		return jdbc.queryForLong("select count(id) from Reply where deleted=false");
 	}
 
 	@Override

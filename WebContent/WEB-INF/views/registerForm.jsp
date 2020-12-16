@@ -1,14 +1,17 @@
 ﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <html>
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <c:import url="Banner.jsp"></c:import><hr>
+  	<title>注册</title>
+    
     <link rel="stylesheet" type="text/css" 
           href="<c:url value="/resources/style.css" />" >
   </head>
   <body>
+    <c:import url="Banner.jsp"></c:import>
+  
     <h1>注册</h1>
     
     <sf:form method="POST" commandName="poster">
@@ -20,6 +23,6 @@
       <input type="submit" value="注册" />
     </sf:form>
     
-    <hr><c:import url="Footer.jsp"></c:import>
+    <c:import url="Footer.jsp"></c:import>
   </body>
 </html>

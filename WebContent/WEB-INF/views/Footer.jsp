@@ -8,6 +8,7 @@
 <title>Footer</title>
 </head>
 <body>
+	<hr>
 	<div style="text-align:center">企业论坛</div>
 	<div style="text-align:center">2020企业级大作业小组</div>
 </body>

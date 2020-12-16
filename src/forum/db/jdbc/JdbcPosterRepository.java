@@ -29,9 +29,9 @@ public class JdbcPosterRepository implements PosterRepository {
 	
 	private static final String SELECT_POSTER = "select id, username, truename, email, locked, deleted from Poster";
 	
-	private static final String SELECT_PAGE_POSTERS = SELECT_POSTER + " where deleted=0 limit ? offset  ?";
+	private static final String SELECT_PAGE_POSTERS = SELECT_POSTER + " where deleted=false limit ? offset  ?";
 	
-	private static final String DELETE_POSTER = "update Poster set deleted = 1";
+	private static final String DELETE_POSTER = "update Poster set deleted = true";
 
 	private static class PosterRowMapper implements RowMapper<Poster> {
 		public Poster mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -42,7 +42,7 @@ public class JdbcPosterRepository implements PosterRepository {
 
 	@Override
 	public long count() {
-		return jdbc.queryForLong("select count(id) from Poster where deleted=0");
+		return jdbc.queryForLong("select count(id) from Poster where deleted=false");
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class JdbcPosterRepository implements PosterRepository {
 	public Poster findOne(long id) {
 		Poster poster = null;
 		try {
-			poster = jdbc.queryForObject(SELECT_POSTER + " where deleted=0 and id=?", new PosterRowMapper(), id);
+			poster = jdbc.queryForObject(SELECT_POSTER + " where deleted=false and id=?", new PosterRowMapper(), id);
 		} catch (DataAccessException e) {
 		}
 		return poster;
@@ -65,7 +65,7 @@ public class JdbcPosterRepository implements PosterRepository {
 	public Poster findByUserName(String userName) {
 		Poster poster = null;
 		try {
-			poster = jdbc.queryForObject(SELECT_POSTER + " where deleted=0 and username=?", new PosterRowMapper(), userName);
+			poster = jdbc.queryForObject(SELECT_POSTER + " where deleted=false and username=?", new PosterRowMapper(), userName);
 		} catch (DataAccessException e) {
 		}
 		return poster;
@@ -75,7 +75,7 @@ public class JdbcPosterRepository implements PosterRepository {
 	public Poster findByUserName(String userName, String password) {
 		Poster poster = null;
 		try {
-			poster = jdbc.queryForObject(SELECT_POSTER + " where deleted=0 and username=? and password=?", new PosterRowMapper(), userName, password);
+			poster = jdbc.queryForObject(SELECT_POSTER + " where deleted=false and username=? and password=?", new PosterRowMapper(), userName, password);
 		} catch (DataAccessException e) {
 		}
 		return poster;
@@ -83,7 +83,7 @@ public class JdbcPosterRepository implements PosterRepository {
 
 	@Override
 	public List<Poster> findAll() {
-		return jdbc.query(SELECT_POSTER + " where deleted=0" + " order by id", new PosterRowMapper());
+		return jdbc.query(SELECT_POSTER + " where deleted=false" + " order by id", new PosterRowMapper());
 	}
 
 	@Override

@@ -4,13 +4,15 @@
 <html>
   <head>
     <title>主页</title>
-	<c:import url="Banner.jsp"></c:import><hr>
+	
     <link rel="stylesheet" 
           type="text/css" 
           href="<c:url value="/resources/style.css" />" >
   </head>
   <body>
-    <a href="<c:url value="/posts" />">新建主题帖</a> |
+    <c:import url="Banner.jsp"></c:import>
+  
+    <a href="<c:url value="/posts/newPost" />">新建主题帖</a> |
     <c:choose>
     	<c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
     		<a href="<c:url value="/logout" />">注销</a> |
@@ -48,6 +50,6 @@
       	<a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
       </c:if>
     
-    <hr><c:import url="Footer.jsp"></c:import>
+    <c:import url="Footer.jsp"></c:import>
   </body>
 </html>

@@ -3,12 +3,14 @@
 <html>
   <head>
     <title>${post.postName}</title>
-    <c:import url="Banner.jsp"></c:import><hr>
+    
     <link rel="stylesheet" 
           type="text/css" 
           href="<c:url value="/resources/style.css" />" >
   </head>
   <body>
+  <c:import url="Banner.jsp"></c:import>
+  
     <div class="postView">
       <div class="postName"><c:out value="${post.postName}" /></div>
       <div class="postMessage"><c:out value="${post.message}" /></div>
@@ -32,6 +34,6 @@
       </ul>
       </div>
     
-    <hr><c:import url="Footer.jsp"></c:import>
+    <c:import url="Footer.jsp"></c:import>
   </body>
 </html>

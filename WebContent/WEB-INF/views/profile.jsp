@@ -2,10 +2,12 @@
 <%@ page session="true" %>
 <html>
   <head>
-    <c:import url="Banner.jsp"></c:import><hr>
+    
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/style.css" />" >
   </head>
   <body>
+  <c:import url="Banner.jsp"></c:import>
+  
     <h1>个人信息</h1>
     用户名：<c:out value="${poster.userName}" /><br/><br/>
     　姓名：<c:out value="${poster.trueName}" /><br/><br/>
@@ -15,6 +17,6 @@
     		<a href="<c:url value="/" />">首页</a>
    	</c:if>
    	
-   	<hr><c:import url="Footer.jsp"></c:import>
+   	<c:import url="Footer.jsp"></c:import>
   </body>
 </html>

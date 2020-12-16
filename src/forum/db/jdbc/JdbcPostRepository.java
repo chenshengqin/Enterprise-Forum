@@ -28,16 +28,16 @@ public class JdbcPostRepository implements PostRepository {
 
 	private static final String INSERT_POST = "insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	
-	private static final String SELECT_POST = "select p.id, pt.id as posterId, pt.username, pt.password, pt.truename, pt.email, pt.locked, pt.deleted, p.postname, p.message, p.postedTime, p.follow, p.click, p.topped, p.deleted from Post p, Poster pt where p.poster=pt.id and p.deleted=0";
+	private static final String SELECT_POST = "select p.id, pt.id as posterId, pt.username, pt.password, pt.truename, pt.email, pt.locked, pt.deleted, p.postname, p.message, p.postedTime, p.follow, p.click, p.topped, p.deleted from Post p, Poster pt where p.poster=pt.id and p.deleted=false";
 	
 	private static final String SELECT_POST_BY_ID = SELECT_POST + " and p.id=?";
 	
 	private static final String SELECT_POST_BY_POSTER_ID_TOPPED = SELECT_POST + " and pt.id=? and pt.topped=1 order by p.postedTime desc";
 	private static final String SELECT_POST_BY_POSTER_ID_UNTOPPED = SELECT_POST + " and pt.id=? and pt.topped=0 order by p.postedTime desc";
 	
-	private static final String UPDATE_POST = "update Post set postname=?, message=?, postedTime=? where deleted=0 and id=?";
-	private static final String UPDATE_POST_FOLLOW = "update Post set follow=? where deleted=0 and id=?";
-	private static final String UPDATE_POST_CLICK = "update Post set click=? where deleted=0 and id=?";
+	private static final String UPDATE_POST = "update Post set postname=?, message=?, postedTime=? where deleted=false and id=?";
+	private static final String UPDATE_POST_FOLLOW = "update Post set follow=? where deleted=false and id=?";
+	private static final String UPDATE_POST_CLICK = "update Post set click=? where deleted=false and id=?";
 	
 	private static final String SELECT_PAGE_POSTS_TOPPED = SELECT_POST + " and pt.topped=1 order by p.postedTime desc limit ? offset  ?";
 	private static final String SELECT_PAGE_POSTS_UNTOPPED = SELECT_POST + " and pt.topped=0 order by p.postedTime desc limit ? offset  ?";
@@ -60,7 +60,7 @@ public class JdbcPostRepository implements PostRepository {
 
 	@Override
 	public long count() {
-		return jdbc.queryForLong("select count(id) from Post where deleted=0");
+		return jdbc.queryForLong("select count(id) from Post where deleted=false");
 	}
 
 	@Override
