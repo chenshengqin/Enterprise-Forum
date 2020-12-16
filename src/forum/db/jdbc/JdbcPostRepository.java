@@ -42,7 +42,7 @@ public class JdbcPostRepository implements PostRepository {
 	private static final String SELECT_PAGE_POSTS_TOPPED = SELECT_POST + " and pt.topped=1 order by p.postedTime desc limit ? offset  ?";
 	private static final String SELECT_PAGE_POSTS_UNTOPPED = SELECT_POST + " and pt.topped=0 order by p.postedTime desc limit ? offset  ?";
 	
-	private static final String DELETE_POST = "update Post set deleted = 1";
+	private static final String DELETE_POST = "update Post set deleted = true";
 
 	private static class PostRowMapper implements RowMapper<Post> {
 		public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
