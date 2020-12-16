@@ -31,7 +31,7 @@ public class JdbcReplyRepository implements ReplyRepository {
 	private static final String SELECT_REPLY = "select r.id, pt.id as posterId, pt.username, pt.password, pt.truename, pt.email, r.postId, r.message, r.postedTime, r.deleted from Reply r, Poster pt where r.poster=pt.id and r.deleted=0";
 	private static final String SELECT_REPLY_BY_ID = SELECT_REPLY + " and r.id=?";
 	private static final String SELECT_REPLY_BY_POST_ID = SELECT_REPLY + " and r.postId=?";
-	private static final String SELECT_PAGE_REPLYS = SELECT_REPLY + " order by r.postedTime desc limit ? offset  ?";
+	private static final String SELECT_PAGE_REPLYS_BY_POST_ID = SELECT_REPLY_BY_POST_ID + " order by r.postedTime desc limit ? offset  ?";
 	
 	private static final String DELETE_REPLY = "update Reply set deleted = 1";
 	
@@ -80,13 +80,13 @@ public class JdbcReplyRepository implements ReplyRepository {
 	}
 
 	@Override
-	public PaginationSupport<Reply> findPage(int pageNo, int pageSize) {
+	public PaginationSupport<Reply> findPage(long postId, int pageNo, int pageSize) {
 		int totalCount = (int) count();
 		int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
 		if (totalCount < 1)
 			return new PaginationSupport<Reply>(new ArrayList<Reply>(0), 0);
 		
-		List<Reply> items = jdbc.query(SELECT_PAGE_REPLYS, new ReplyRowMapper());
+		List<Reply> items = jdbc.query(SELECT_PAGE_REPLYS_BY_POST_ID, new ReplyRowMapper(), postId);
 		PaginationSupport<Reply> r = new PaginationSupport<Reply>(items, totalCount, pageSize, startIndex);
 		return r;
 	}
