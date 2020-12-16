@@ -26,7 +26,7 @@ public class JdbcPostRepository implements PostRepository {
 		this.jdbc = jdbc;
 	}
 
-	private static final String INSERT_POST = "insert into Post (poster, postname, message, postedTime) values (?, ?, ?, ?)";
+	private static final String INSERT_POST = "insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	private static final String SELECT_POST = "select p.id, pt.id as posterId, pt.username, pt.password, pt.truename, pt.email, pt.locked, pt.deleted, p.postname, p.message, p.postedTime, p.follow, p.click, p.topped, p.deleted from Post p, Poster pt where p.poster=pt.id and p.deleted=0";
 	
@@ -75,7 +75,7 @@ public class JdbcPostRepository implements PostRepository {
 
 	@Override
 	public Post save(Post post) {
-		jdbc.update(INSERT_POST, post.getPoster(), post.getPostName(), post.getMessage(), post.getPostedTime());
+		jdbc.update(INSERT_POST, post.getPoster().getId(), post.getPostName(), post.getMessage(), post.getPostedTime(), post.getFollow(), post.getClick(), post.getTopped(), post.getDeleted());
 		return post;
 	}
 
