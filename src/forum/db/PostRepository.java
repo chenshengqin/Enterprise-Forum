@@ -32,6 +32,13 @@ public interface PostRepository {
 	Post findOne(long id);
 	
 	/**
+	 * 获得所有的主题帖
+	 * 
+	 * @return 主题帖列表
+	 */
+	List<Post> findAll();
+	
+	/**
 	 * 生成主题帖
 	 * @param post
 	 * @return 主题帖

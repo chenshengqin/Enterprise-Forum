@@ -87,6 +87,12 @@ public class JdbcPostRepository implements PostRepository {
 		}
 		return post;
 	}
+	
+	@Override
+	public List<Post> findAll() {
+		List<Post> posts = jdbc.query(SELECT_POST, new PostRowMapper());
+		return posts;
+	}
 
 	@Override
 	public Post save(Post post) {

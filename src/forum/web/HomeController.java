@@ -109,4 +109,14 @@ public class HomeController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	/**
+	 * 进入搜索
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/search", method = GET)
+	public String showSearchForm() {
+		return "searchForm";
+	}
 }
