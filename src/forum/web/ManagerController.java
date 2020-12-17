@@ -271,10 +271,9 @@ public class ManagerController {
 		if(manager.getTrueName() == null) {
 			manager.setTrueName("");
 		}
-		Manager nowManager = (Manager)session.getAttribute("manager");
+		Manager nowManager = (Manager) session.getAttribute("manager");
 		manager.setDeleted(nowManager.getDeleted());
-		managerRepository.modify(nowManager.getId(),manager);
-		session.removeAttribute("manager");
+		manager = managerRepository.modify(nowManager.getId(), manager);
 		session.setAttribute("manager", manager);
 		return "redirect:/manager";
 	}
