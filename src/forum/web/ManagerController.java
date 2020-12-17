@@ -328,11 +328,15 @@ public class ManagerController {
 		boolean empty = false;
 		if(postName.equals("")) {
 			model.addAttribute("emptyPostName", "emptyPostName");
+			empty = true;
 		}
 		if(message.equals("")) {
 			model.addAttribute("emptyMessage", "emptyMessage");
+			empty = true;
 		}
 		if(empty) {
+			Post post = postRepository.findOne(postId);
+			model.addAttribute(post);
 			return "managerEditPost";
 		}
 		
