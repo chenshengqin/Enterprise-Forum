@@ -133,7 +133,6 @@ public class HomeController {
 		session.setAttribute("pageNo", pageNo);
 		session.setAttribute("searchText", searchText);
 		model.addAttribute("List", postRepository.findAll());
-		//System.out.println(postRepository.findAll() == null);
 		
 		return "search";
 	}

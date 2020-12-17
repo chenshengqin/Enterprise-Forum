@@ -15,7 +15,7 @@
   <body>
     <c:import url="Banner.jsp"></c:import>
     
-    <form action="">
+    <form method="POST">
       <input type="text" name="searchText" /><br/>
       <input type="submit" value="搜索" />
     </form>
