@@ -18,6 +18,7 @@
       　密码: <input type="password" name="password" /><br/><br/>
       <input type="submit" value="登录" />
     </form>
+    <a href="<c:url value="/" />">返回</a>
     
     <c:import url="Footer.jsp"></c:import>
   </body>

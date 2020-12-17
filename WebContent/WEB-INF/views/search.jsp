@@ -19,6 +19,7 @@
       <input type="text" name="searchText" /><br/>
       <input type="submit" value="搜索" />
     </form>
+    <a href="<c:url value="/" />">主页</a>
     
     <c:if test="${not empty List}">
     <c:choose>
