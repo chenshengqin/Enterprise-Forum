@@ -12,13 +12,13 @@
 	<h1>企业论坛
 	<c:choose>
       <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
-      	，欢迎！用户<c:out value="${poster.userName}" /><br/>
+        ，欢迎！用户<c:out value="${poster.userName}" /><br/>
       </c:when>
       <c:when test = "${not empty sessionScope.manager && not empty sessionScope.manager.id }">
-      ，欢迎！管理员<c:out value="${manager.userName}" /><br/>
+        ，欢迎！管理员<c:out value="${manager.userName}" /><br/>
       </c:when>
       <c:otherwise>
-    	，欢迎！游客<br/>
+        ，欢迎！游客<br/>
       </c:otherwise>
     </c:choose>
     </h1>
