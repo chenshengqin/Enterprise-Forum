@@ -95,5 +95,5 @@ public interface PostRepository {
 	 * @param pageSize
 	 * @return
 	 */
-	PaginationSupport<Post> findPageById(long posterId, int pageNo, int pageSize);
+	PaginationSupport<Post> findPageByPosterId(long posterId, int pageNo, int pageSize);
 }

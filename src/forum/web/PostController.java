@@ -173,7 +173,7 @@ public class PostController {
 		Poster poster = (Poster) session.getAttribute("poster");
 		Long id = poster.getId();
 		
-		model.addAttribute("paginationSupport",postRepository.findPage(pageNo, pageSize));
+		model.addAttribute("paginationSupport", postRepository.findPageByPosterId(id, pageNo, pageSize));
 		return "ownPost";
 	}
 }
