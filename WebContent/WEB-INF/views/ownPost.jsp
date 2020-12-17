@@ -7,11 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>自己的主题帖</title>
+    <link rel="stylesheet" 
+          type="text/css" 
+          href="<c:url value="/resources/style.css" />" >
   </head>
   <body>
     <c:import url="Banner.jsp"></c:import>
     
-    <hr>
       <div class="postList">
       <h1>个人主题</h1>
       <ul class="postList">
@@ -36,6 +38,8 @@
     <c:if test="${paginationSupport.nextPage}">
       <a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
     </c:if>
+    
+    <br/><a href="<c:url value="/" />">返回主题帖列表</a>
     
     <c:import url="Footer.jsp"></c:import>
   </body>

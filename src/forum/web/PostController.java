@@ -157,7 +157,7 @@ public class PostController {
 		post.setPostName(postName);
 		post.setMessage(message);
 		postRepository.update(post, id);
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 	/**
