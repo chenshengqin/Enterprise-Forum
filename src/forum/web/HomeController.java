@@ -118,32 +118,15 @@ public class HomeController {
 		if (poster != null) {
 			session.setAttribute("poster", poster);
 			
-			// 保存cookie
-			boolean nameFlag = true;
-			boolean passwordFlag = true;
-			Cookie cookies[] = req.getCookies();
-			if (cookies != null) {
-				for (int i = 0; i < cookies.length; i++) {
-					if (cookies[i].getName().equals("userName")) {
-						cookies[i].setValue(userName);
-						nameFlag = false;
-					}
-					if (cookies[i].getName().equals("password")) {
-						cookies[i].setValue(password);
-						passwordFlag = false;
-					}
-				}
-			}
-			if(nameFlag) {
-				Cookie nameCookie = new Cookie("userName", userName);
-				nameCookie.setMaxAge(20 * 60 * 60);
-				res.addCookie(nameCookie);
-			}
-			if(passwordFlag) {
-				Cookie passwordCookie = new Cookie("password", password);
-				passwordCookie.setMaxAge(20 * 60 * 60);
-				res.addCookie(passwordCookie);
-			}
+			// 保存cookie,直接覆写
+			Cookie nameCookie = new Cookie("userName", userName);
+			nameCookie.setMaxAge(20 * 60 * 60);
+			//System.out.println(nameCookie.getPath());
+			//System.out.println(nameCookie.getDomain());
+			res.addCookie(nameCookie);
+			Cookie passwordCookie = new Cookie("password", password);
+			passwordCookie.setMaxAge(20 * 60 * 60);
+			res.addCookie(passwordCookie);
 			
 			return "redirect:/";
 		} else {
@@ -160,7 +143,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/logout", method = GET)
 	public String logout(HttpSession session, HttpServletRequest req, HttpServletResponse res) {
-		// 覆盖有效cookie
+		// 覆盖，使cookie无效
 		Cookie nameCookie = new Cookie("userName", "");
 		nameCookie.setMaxAge(0);
 		res.addCookie(nameCookie);

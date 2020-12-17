@@ -92,7 +92,7 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/showPost/deletePost/{postId}",method = GET)
 	public String deleltePost(@PathVariable("postId")long postId) {
-		this.postRepository.delete(postId);
+		this.postRepository.deletePost(postId);
 		return "redirect:/manager/showPost";
 	}
 	/**

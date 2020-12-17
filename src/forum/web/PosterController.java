@@ -84,32 +84,17 @@ public class PosterController {
 		
 		poster = posterRepository.save(poster);
 		
-		// 保存cookie
-		boolean nameFlag = true;
-		boolean passwordFlag = true;
-		Cookie cookies[] = req.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("userName")) {
-					cookies[i].setValue(poster.getUserName());
-					nameFlag = false;
-				}
-				if (cookies[i].getName().equals("password")) {
-					cookies[i].setValue(poster.getPassword());
-					passwordFlag = false;
-				}
-			}
-		}
-		if(nameFlag) {
-			Cookie nameCookie = new Cookie("userName", poster.getUserName());
-			nameCookie.setMaxAge(20 * 60 * 60);
-			res.addCookie(nameCookie);
-		}
-		if(passwordFlag) {
-			Cookie passwordCookie = new Cookie("password", poster.getPassword());
-			passwordCookie.setMaxAge(20 * 60 * 60);
-			res.addCookie(passwordCookie);
-		}
+		// 保存cookie,直接覆写，并保持一致性
+		Cookie nameCookie = new Cookie("userName", poster.getUserName());
+		nameCookie.setMaxAge(20 * 60 * 60);
+		nameCookie.setPath("/EnterpriseForumSystem");
+		nameCookie.setDomain("localhost");;
+		res.addCookie(nameCookie);
+		Cookie passwordCookie = new Cookie("password", poster.getPassword());
+		passwordCookie.setMaxAge(20 * 60 * 60);
+		passwordCookie.setPath("/EnterpriseForumSystem");
+		passwordCookie.setDomain("localhost");
+		res.addCookie(passwordCookie);
 		
 		if(poster == null) {
 			System.out.println("Poster Null.");

@@ -82,10 +82,10 @@ public class PostController {
 		//TODO
 		//解决查看主题回帖的问题
 		Post post = postRepository.findOne(postId);
-		if(pageNo != 1) {
+		if(pageNo == 1) {
 			post.setClick(post.getClick() + 1);
+			postRepository.updateClick(post);
 		}
-		postRepository.updateClick(post);
 		model.addAttribute(post);
 		model.addAttribute("paginationSupport", replyRepository.findPage(postId, pageNo, pageSize));
 		return "post";
@@ -160,7 +160,7 @@ public class PostController {
 		Post post = postRepository.findOne(id);
 		post.setPostName(postName);
 		post.setMessage(message);
-		postRepository.update(post, id);
+		postRepository.updatePost(post, id);
 		return "redirect:/";
 	}
 	

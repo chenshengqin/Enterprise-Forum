@@ -46,6 +46,7 @@ public class JdbcPostRepository implements PostRepository {
 	private static final String SELECT_PAGE_POSTS_UNTOPPED = SELECT_POST + " and p.topped=false order by p.postedTime desc limit ? offset  ?";
 	
 	private static final String DELETE_POST = "update Post set deleted = true";
+	private static final String SET_POST_TOP = "update Post set topped = ?";
 
 	private static class PostRowMapper implements RowMapper<Post> {
 		public Post mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -109,12 +110,17 @@ public class JdbcPostRepository implements PostRepository {
 	}
 
 	@Override
-	public void delete(long id) {
+	public void deletePost(long id) {
 		jdbc.update(DELETE_POST + " where id=?", id);
+	}
+	
+	@Override
+	public void setTopOrNo(long id, boolean topped) {
+		jdbc.update(SET_POST_TOP + " where id=?", topped, id);
 	}
 
 	@Override
-	public Post update(Post post, long id) {
+	public Post updatePost(Post post, long id) {
 		jdbc.update(UPDATE_POST, post.getPostName(), post.getMessage(), post.getPostedTime(), id);
 		return post;
 	}

@@ -17,6 +17,13 @@ public interface ReplyRepository {
 	long count();
 	
 	/**
+	 * 获得指定id的回复数量
+	 * @param postId
+	 * @return
+	 */
+	long countByPostId(long postId);
+	
+	/**
 	 * 获得指定id的回复
 	 * @param id
 	 * @return 回复
@@ -41,7 +48,7 @@ public interface ReplyRepository {
 	 * 删除
 	 * @param id
 	 */
-	void delete(long id);
+	void deleteReply(long id);
 	
 	/**
 	 * 分页展示
@@ -50,4 +57,12 @@ public interface ReplyRepository {
 	 * @return 回复分页类对象
 	 */
 	PaginationSupport<Reply> findPage(long postId, int pageNo,int pageSize);
+	
+	/**
+	 * 编辑回复
+	 * @param reply
+	 * @param id
+	 * @return
+	 */
+	Reply updateReply(Reply reply, long id);
 }
