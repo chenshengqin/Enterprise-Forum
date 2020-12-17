@@ -110,7 +110,7 @@ public class JdbcPostRepository implements PostRepository {
 
 	@Override
 	public void delete(long id) {
-		jdbc.update(DELETE_POST + "where id=?", id);
+		jdbc.update(DELETE_POST + " where id=?", id);
 	}
 
 	@Override
