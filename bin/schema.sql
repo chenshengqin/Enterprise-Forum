@@ -10,7 +10,7 @@ create table Poster (
 create table Post (
 	id identity,
 	poster integer not null,
-	postname varchar(20) unique not null,
+	postname varchar(20) not null,
 	message varchar(2000) not null,
 	postedTime datetime not null,
 	follow integer not null,

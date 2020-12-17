@@ -17,11 +17,14 @@
     
     <sf:form method="POST" commandName="poster">
     <sf:errors path="*" cssClass="error"/><br/><br/>
-	　姓名：<sf:input path="trueName" /><sf:errors path="trueName" cssClass="error"/><br/><br/>
-	　邮箱：<sf:input path="email" /><sf:errors path="email" cssClass="error"/>  <br/><br/>
+	 姓名：<sf:input path="trueName" /><sf:errors path="trueName" cssClass="error"/>
+	<c:if test="${not empty errSameUserName}">
+	    <font color="#FF0000">与已有用户名重复！</font>
+	</c:if><br/><br/>
+	 邮箱：<sf:input path="email" /><sf:errors path="email" cssClass="error"/><br/><br/>
 	用户名：<sf:input path="userName" /><sf:errors path="userName" cssClass="error"/><br/><br/>
-	　密码：<sf:password  path="password" /><sf:errors path="password" cssClass="error"/><br/><br/>
-      <input type="submit" value="注册" />
+	 密码：<sf:password  path="password" /><sf:errors path="password" cssClass="error"/><br/><br/>
+    <input type="submit" value="注册" />
     </sf:form>
     
     <c:import url="Footer.jsp"></c:import>
