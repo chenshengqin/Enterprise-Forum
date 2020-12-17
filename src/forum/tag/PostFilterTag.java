@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import forum.entity.Post;
 import forum.web.PaginationSupport;
 
 /**
- * Count the color from the session String
+ * 
  * 
  * @ClassName: PostFilter
  * @author: CN.CSQ

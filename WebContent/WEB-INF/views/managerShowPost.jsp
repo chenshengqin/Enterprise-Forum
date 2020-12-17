@@ -37,7 +37,7 @@
             </div>
             点击次数：<div class="clickTimes"><c:out value="${post.click}" /></div>
              回帖数：<div class="replyTimes"><c:out value="${post.follow}" /></div>
-              | <a href="<c:url value="/posts/${post.id}" />">查看</a>
+              | <a href="<c:url value="/manager/showPost/${post.id}" />">查看</a>
               | <a href="<c:url value="/manager/showPost/deletePost/${post.id}"/>">删帖</a> 
               <c:choose>
               	<c:when test = "${post.topped == true}">|已置顶</c:when>
