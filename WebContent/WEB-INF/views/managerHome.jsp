@@ -9,17 +9,45 @@
     <title>管理员主页</title>
     <link rel="stylesheet" 
           type="text/css" 
-          href="<c:url value="/resources/style.css" />" >
+          href="<c:url value="/resources/styles.css" />" >
+    <style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    .div1{
+        margin:0 auto;
+        width:370px;
+    }
+    </style>
   </head>
   
   <body>
+  <div class="div1">
     <c:import url="Banner.jsp"></c:import>
   	<a href="<c:url value="/manager/showPost" />">编辑帖子</a> | 
   	   	<a href="<c:url value="/manager/showPoster" />">查看用户列表</a> | 
-   	<a href="<c:url value="/manager/showManager" />">查看管理员列表</a> | 
+   	<a href="<c:url value="/manager/showManager" />">查看管理员列表</a> | <br>
    	<a href="<c:url value="/showManager" />">修改个人信息</a> | 
    	<a href="<c:url value="/" />">主页</a>
     
     <c:import url="Footer.jsp"></c:import>
+        <div class="htmleaf-container">
+	<div class="wrapper">
+		<ul class="bg-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	</div>
+    </div>
   </body>
 </html>
