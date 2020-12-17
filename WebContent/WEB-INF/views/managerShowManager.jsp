@@ -30,9 +30,9 @@
       <ul class="postList">
         <c:forEach items="${paginationSupport.items}" var="manager" >
           <li id="post_<c:out value="${manager.id}"/>">
-          	<c:if test = "${sessionScope.manager.userName != manger.userName}">
             <div class="posterName">管理员用户名: <c:out value="${manager.userName}" /></div>
-            <a href="<c:url value="/manager/showManager/deleteManager/${manager.id}" />">删除</a>
+            <c:if test = "${sessionScope.manager.userName != manager.userName}">
+              <a href="<c:url value="/manager/showManager/deleteManager/${manager.id}" />">删除</a>
 			</c:if>
           </li>
         </c:forEach>
