@@ -32,7 +32,7 @@
       <form method="POST" name="postForm" >
         id:<input type="text" name="id" value="${post.id}" readonly><br/>
       	主题：<c:out value="${post.postName}"/><br/>
-      	<textarea name="postName" cols="80" rows="1"></textarea><br/>
+      	<textarea name="postName" cols="50" rows="2"></textarea><br/>
 	      <c:if test="${not empty emptyPostName}">
 	        <font color="#FF0000">标题为空！</font>
 	      </c:if><br/>
@@ -40,7 +40,7 @@
           <c:if test="${not empty emptyMessage}">
 	        <font color="#FF0000">内容为空！</font>
 	      </c:if><br/><br/>
-        <textarea name="message" cols="80" rows="5"></textarea><br/><br/>
+        <textarea name="message" cols="50" rows="5"></textarea><br/><br/>
           <input type="submit" value="编辑主题帖" />
       </form>
     </div>

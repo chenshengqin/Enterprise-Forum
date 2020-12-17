@@ -28,7 +28,7 @@
     
     <a href="<c:url value="/" />">主页</a>
     <form method="POST">
-      <input type="text" name="searchText" /><br/>
+      <textarea name="searchText" cols="50" rows="2"></textarea>
       <input type="submit" value="搜索" />
     </form>
     
