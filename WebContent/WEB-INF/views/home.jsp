@@ -28,7 +28,7 @@
   <div class="div1">
     <c:import url="Banner.jsp"></c:import>
   
-    <a href="<c:url value="/search" />">搜索</a>
+    <a href="<c:url value="/search" />">搜索</a> | 
     <c:choose>
       <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
         <a href="<c:url value="/posts/newPost" />">新建主题帖</a> |
@@ -41,7 +41,7 @@
       <c:otherwise>
         <a href="<c:url value="/login" />">登录</a> |
         <a href="<c:url value="/poster/register" />">注册</a> |
-        <a href="<c:url value="/manager" />">管理</a> |
+        <a href="<c:url value="/manager" />">管理</a>
       </c:otherwise>
     </c:choose>
     
@@ -75,8 +75,6 @@
     <c:import url="Footer.jsp"></c:import>
    <div class="htmleaf-container">
 	<div class="wrapper">
-
-		
 		<ul class="bg-bubbles">
 			<li></li>
 			<li></li>
@@ -90,7 +88,7 @@
 			<li></li>
 		</ul>
 	</div>
-</div>
+	</div>
 </div>
   </body>
 </html>
