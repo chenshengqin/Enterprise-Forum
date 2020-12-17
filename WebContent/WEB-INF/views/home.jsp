@@ -22,7 +22,7 @@
         margin:0 auto;
         width:370px;
     }
-</style>
+    </style>
   </head>
   <body>
   <div class="div1">
