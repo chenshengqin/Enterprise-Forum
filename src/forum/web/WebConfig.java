@@ -71,5 +71,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 		super.addInterceptors(registry);
 	}
+	
+	
 
 }

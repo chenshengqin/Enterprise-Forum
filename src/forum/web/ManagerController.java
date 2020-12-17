@@ -37,8 +37,16 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "",method = GET)
-	public String showManagerLoginForm() {
+	public String showManagerLoginForm(HttpSession session) {
+		if(session.getAttribute("manager") != null) {
+			if(session.getAttribute("poster")!=null) {
+				session.removeAttribute("poster");
+			}
+			return "managerHome";
+		}
+		else {
 		return "managerLogin";
+		}
 	}
 	
 	/**
@@ -53,6 +61,7 @@ public class ManagerController {
 			@RequestParam(value = "password" , defaultValue = "")String passWord, HttpSession session) {
 		Manager manager = managerRepository.findByUserName(userName, passWord);
 		if(manager != null && manager.getDeleted() == false) {
+			session.removeAttribute("poster");
 			session.setAttribute("manager", manager);
 			return "managerHome";
 		}else {
