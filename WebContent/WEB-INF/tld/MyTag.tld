@@ -27,4 +27,9 @@
 	    <rtexprvalue>true</rtexprvalue>
 	  </attribute>
 	</tag>
+	<tag>
+	   <name>Output</name>
+	   <tag-class>forum.tag.InvokeTag</tag-class>
+	   <body-content>scriptless</body-content>
+	</tag>
 </taglib>

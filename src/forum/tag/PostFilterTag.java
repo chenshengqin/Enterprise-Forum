@@ -11,7 +11,7 @@ import forum.entity.Post;
 import forum.web.PaginationSupport;
 
 /**
- * 
+ * 过滤非搜索文本的主题帖
  * 
  * @ClassName: PostFilter
  * @author: CN.CSQ

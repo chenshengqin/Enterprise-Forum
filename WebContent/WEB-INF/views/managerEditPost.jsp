@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="MyTag" uri="MyTag"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -30,7 +31,9 @@
     <div class="postForm">
       <h1>编辑主题帖</h1> 
       <form method="POST" name="postForm" >
-        id:<input type="text" name="id" value="${post.id}" readonly><br/>
+        <MyTag:Output>
+        ${id}
+        </MyTag:Output><input type="text" name="id" value="${post.id}" readonly><br/>
       	主题：<c:out value="${post.postName}"/><br/>
       	<textarea name="postName" cols="50" rows="2"></textarea><br/>
 	      <c:if test="${not empty emptyPostName}">

@@ -44,7 +44,7 @@
     </c:if>
     
     <div class="postList">
-      <h1>主题</h1>
+      <h1>主题列表</h1>
       <ul class="postList">
         <c:forEach items="${paginationSupport.items}" var="post" >
           <li id="post_<c:out value="${post.id}"/>">
