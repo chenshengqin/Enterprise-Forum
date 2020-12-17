@@ -170,10 +170,21 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/edit/{postId}", method = RequestMethod.POST)
-	public String editPost(@RequestParam(value = "id") Long id,
+	public String editPost(@RequestParam(value = "id") Long id, Model model,
 							@RequestParam(value = "postName", defaultValue = "") String postName,
 							@RequestParam(value = "message", defaultValue = "") String message)
 			throws Exception {
+		boolean empty = false;
+		if(postName.equals("")) {
+			model.addAttribute("emptyPostName", "emptyPostName");
+		}
+		if(message.equals("")) {
+			model.addAttribute("emptyMessage", "emptyMessage");
+		}
+		if(empty) {
+			return "newPost";
+		}
+		
 		Post post = postRepository.findOne(id);
 		post.setPostName(postName);
 		post.setMessage(message);
