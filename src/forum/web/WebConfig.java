@@ -65,13 +65,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 
+		// 拦截将转发至用户登录页
 		registry.addInterceptor(new PosterInterceptor())
 				.addPathPatterns(new String[] { "/posts", "/posts/ownPost", "/posts/edit", "/posts/newPost", "/posts/edit/**", "/poster", "/poster/**" })// 添加拦截
 				.excludePathPatterns("/poster/register");// excludePathPatterns 排除拦截
+		
+		// 拦截将转发至管理员登录页
+		registry.addInterceptor(new ManagerInterceptor())
+				.addPathPatterns(new String[] { "/manager/showPost", "/manager/showPoster", "/manager/showManager", "/manager/register", "/manager/modify", "/manager/logout" });// 添加拦截
 
 		super.addInterceptors(registry);
 	}
-	
-	
 
 }
