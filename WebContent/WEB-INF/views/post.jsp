@@ -14,13 +14,24 @@
     <c:import url="Banner.jsp"></c:import>
   
     <div class="postView">
-      id:<div class="postId"><c:out value="${post.id}" /></div>
+      <div class="postId">id:<c:out value="${post.id}" /></div>
       主题：<div class="postName"><c:out value="${post.postName}" /></div>
       内容：<div class="postMessage"><c:out value="${post.message}" /></div>
-      发帖时间：<div class="postTime">
+      <div class="postTime">发帖时间：
         <fmt:formatDate value="${post.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
       </div>
+      <div class="clickTimes">点击次数：<c:out value="${post.click}" /></div>
+      <div class="replyTimes">回帖数：<c:out value="${post.follow}" /></div>
+      <div class="postTopped">置顶：
+        <c:if test="${post.topped}">
+          已置顶
+        </c:if>
+        <c:if test="${not post.topped}">
+          未置顶
+        </c:if>
+      </div>
     </div>
+      
     <c:if test="${post.poster.userName == sessionScope.poster.userName}">
       <a href="<c:url value="/posts/edit/${post.id}" />">编辑主题帖 |</a>
     </c:if>
@@ -51,7 +62,15 @@
     <br/>
     <form method="POST">
       跟帖回复：<br/><textarea name="replyMessage" cols="80" rows="5"></textarea><br/><br/>
-      <input type="submit" value="回复" />
+      <c:choose>
+        <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
+          <input type="submit" value="回复" />
+        </c:when>
+        <c:otherwise>
+          <input type="submit" value="回复" disabled/>
+          <br/>对不起，你还没有登录，请登录后回复！
+        </c:otherwise>
+      </c:choose>
     </form>
     
     <c:import url="Footer.jsp"></c:import>
