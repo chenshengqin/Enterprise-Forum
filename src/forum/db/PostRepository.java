@@ -18,6 +18,13 @@ public interface PostRepository {
 	long count();
 	
 	/**
+	 * 获得指定发帖人的主题帖数量
+	 * @param posterId
+	 * @return
+	 */
+	long countByPosterId(long posterId);
+	
+	/**
 	 * 获得指定id的主题帖
 	 * @param id
 	 * @return 主题帖
@@ -67,10 +74,19 @@ public interface PostRepository {
 	void updateClick(Post post);
 	
 	/**
-	 * 分页展示
+	 * 全部主题帖分页展示
 	 * @param pageNo 页数
 	 * @param pageSize 页长
 	 * @return 主题帖分页类对象
 	 */
 	PaginationSupport<Post> findPage(int pageNo, int pageSize);
+	
+	/**
+	 * 指定发帖人的主题帖分页展示
+	 * @param posterId 发帖人id
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	PaginationSupport<Post> findPageById(long posterId, int pageNo, int pageSize);
 }

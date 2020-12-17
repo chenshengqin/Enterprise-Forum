@@ -76,7 +76,7 @@ insert into Post (poster, postname, message, postedTime, follow, click, topped, 
 	'123456789123456789',
 	'2020-12-17 03:00:00',
 	1,
-	1,
+	0,
 	true,
 	false
 );
