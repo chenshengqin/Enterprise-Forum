@@ -22,13 +22,8 @@
   </head>
   
   <body>
-<<<<<<< HEAD
- 
-  	<c:import url="Banner.jsp"></c:import>
-=======
  	<div class="div1">
-  
->>>>>>> a24115ac0a528959fe82fe3658f911684e595673
+  	<c:import url="Banner.jsp"></c:import>
     <h1>管理员登录</h1>
     <form method="POST">
       用户名: <input type="text" name="userName" /><br/><br/>
