@@ -2,6 +2,7 @@ package forum.db.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,15 +33,15 @@ public class JdbcPostRepository implements PostRepository {
 	
 	private static final String SELECT_POST_BY_ID = SELECT_POST + " and p.id=?";
 	
-	private static final String SELECT_POST_BY_POSTER_ID_TOPPED = SELECT_POST + " and pt.id=? and pt.topped=1 order by p.postedTime desc";
-	private static final String SELECT_POST_BY_POSTER_ID_UNTOPPED = SELECT_POST + " and pt.id=? and pt.topped=0 order by p.postedTime desc";
+	private static final String SELECT_POST_BY_POSTER_ID_TOPPED = SELECT_POST + " and pt.id=? and p.topped=true order by p.postedTime desc";
+	private static final String SELECT_POST_BY_POSTER_ID_UNTOPPED = SELECT_POST + " and pt.id=? and p.topped=false order by p.postedTime desc";
 	
 	private static final String UPDATE_POST = "update Post set postname=?, message=?, postedTime=? where deleted=false and id=?";
 	private static final String UPDATE_POST_FOLLOW = "update Post set follow=? where deleted=false and id=?";
 	private static final String UPDATE_POST_CLICK = "update Post set click=? where deleted=false and id=?";
 	
-	private static final String SELECT_PAGE_POSTS_TOPPED = SELECT_POST + " and pt.topped=1 order by p.postedTime desc limit ? offset  ?";
-	private static final String SELECT_PAGE_POSTS_UNTOPPED = SELECT_POST + " and pt.topped=0 order by p.postedTime desc limit ? offset  ?";
+	private static final String SELECT_PAGE_POSTS_TOPPED = SELECT_POST + " and p.topped=true order by p.postedTime desc limit ? offset  ?";
+	private static final String SELECT_PAGE_POSTS_UNTOPPED = SELECT_POST + " and p.topped=false order by p.postedTime desc limit ? offset  ?";
 	
 	private static final String DELETE_POST = "update Post set deleted = true";
 
@@ -52,9 +53,16 @@ public class JdbcPostRepository implements PostRepository {
 			String trueName = rs.getString("truename");
 			String email = rs.getString("email");
 			Poster poster = new Poster(posterId, userName, password, trueName, email);
-			return new Post(rs.getLong("id"), poster, rs.getString("postname"), rs.getString("message"),
-					rs.getTimestamp("postedTime"), rs.getInt("follow"), rs.getInt("click"), rs.getBoolean("topped"),
-					rs.getBoolean("deleted"));
+			
+			long id = rs.getLong("id");
+			String postname = rs.getString("postname");
+			String message = rs.getString("message");
+			Timestamp postedTime = rs.getTimestamp("postedTime");
+			int follow = rs.getInt("follow");
+			int click = rs.getInt("click");
+			Boolean topped = rs.getBoolean("topped");
+			Boolean deleted = rs.getBoolean("deleted");
+			return new Post(id, poster, postname, message, postedTime, follow, click, topped, deleted);
 		}
 	}
 
@@ -81,8 +89,8 @@ public class JdbcPostRepository implements PostRepository {
 
 	@Override
 	public List<Post> findByPosterId(long posterId) {
-		List<Post> posts = jdbc.query(SELECT_POST_BY_POSTER_ID_TOPPED, new PostRowMapper());
-		posts.addAll(jdbc.query(SELECT_POST_BY_POSTER_ID_UNTOPPED, new PostRowMapper()));
+		List<Post> posts = jdbc.query(SELECT_POST_BY_POSTER_ID_TOPPED, new PostRowMapper(), posterId);
+		posts.addAll(jdbc.query(SELECT_POST_BY_POSTER_ID_UNTOPPED, new PostRowMapper(), posterId));
 		
 		return posts;
 	}
@@ -105,8 +113,8 @@ public class JdbcPostRepository implements PostRepository {
 		if (totalCount < 1)
 			return new PaginationSupport<Post>(new ArrayList<Post>(0), 0);
 		
-		List<Post> items = jdbc.query(SELECT_PAGE_POSTS_TOPPED, new PostRowMapper());
-		items.addAll(jdbc.query(SELECT_PAGE_POSTS_UNTOPPED, new PostRowMapper()));
+		List<Post> items = jdbc.query(SELECT_PAGE_POSTS_TOPPED, new PostRowMapper(), pageSize, startIndex);
+		items.addAll(jdbc.query(SELECT_PAGE_POSTS_UNTOPPED, new PostRowMapper(), pageSize, startIndex));
 		PaginationSupport<Post> p = new PaginationSupport<Post>(items, totalCount, pageSize, startIndex);
 		return p;
 	}
