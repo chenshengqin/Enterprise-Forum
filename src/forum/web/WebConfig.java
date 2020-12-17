@@ -72,8 +72,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		
 		// 拦截将转发至管理员登录页
 		registry.addInterceptor(new ManagerInterceptor())
-				.addPathPatterns(new String[] { "/manager/showPost", "/manager/showPoster", "/manager/showManager", "/manager/register", "/manager/modify", "/manager/logout" });// 添加拦截
-
+				.addPathPatterns(new String[] { "/manager/**" })// 添加拦截
+				.excludePathPatterns("/manager");
+		
 		super.addInterceptors(registry);
 	}
 

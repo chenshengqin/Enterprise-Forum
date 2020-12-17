@@ -27,6 +27,8 @@
      
     <div class="postList">
       <h1>最近主题</h1>
+      <a href="<c:url value="/manager" />">返回首页</a>
+      <br>
       <ul class="postList">
         <c:forEach items="${paginationSupport.items}" var="post" >
           <li id="post_<c:out value="${post.id}"/>">
@@ -59,8 +61,7 @@
     <c:if test="${paginationSupport.nextPage}">
       <a href="<c:url value="/manager/showPost?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
     </c:if>
-    <br>
-    <a href="<c:url value="/manager" />">返回首页</a>
+    
     <c:import url="Footer.jsp"></c:import>
         <div class="htmleaf-container">
 	<div class="wrapper">

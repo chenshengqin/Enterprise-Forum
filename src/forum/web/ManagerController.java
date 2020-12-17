@@ -205,7 +205,7 @@ public class ManagerController {
 		if(session.getAttribute("manager") != null) {
 			session.removeAttribute("manager");
 		}
-		return "home";
+		return "redirect:/manager";
 	}
 	/**
 	 * 返回了添加管理员界面
@@ -293,7 +293,7 @@ public class ManagerController {
 		Post post = postRepository.findOne(postId);
 		model.addAttribute(post);
 		model.addAttribute("paginationSupport", replyRepository.findPage(postId, pageNo, pageSize));
-		return "post";
+		return "managerShowSinglePost";
 	}
 	
 	/**
@@ -304,7 +304,7 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/showPost/edit/{postId}", method = RequestMethod.GET)
-	public String getEditPost(@PathVariable("postId") long postId, Model model) {
+	public String getPost(@PathVariable("postId") long postId, Model model) {
 		Post post = postRepository.findOne(postId);
 		model.addAttribute(post);
 		return "managerEditPost";

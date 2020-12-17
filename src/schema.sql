@@ -170,7 +170,7 @@ insert into Post (poster, postname, message, postedTime, follow, click, topped, 
 	'2020-12-17 07:00:00',
 	0,
 	0,
-	true,
+	false,
 	false
 );
 insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (
@@ -180,7 +180,7 @@ insert into Post (poster, postname, message, postedTime, follow, click, topped, 
 	'2020-12-17 08:00:00',
 	0,
 	0,
-	true,
+	false,
 	false
 );
 insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (
@@ -200,7 +200,7 @@ insert into Post (poster, postname, message, postedTime, follow, click, topped, 
 	'2020-12-17 10:00:00',
 	6,
 	6,
-	false,
+	true,
 	false
 );
 insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (
