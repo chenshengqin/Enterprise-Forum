@@ -7,13 +7,16 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>编辑主题帖</title>
+    <link rel="stylesheet" 
+          type="text/css" 
+          href="<c:url value="/resources/style.css" />" >
   </head>
   
   <body>
     <c:import url="Banner.jsp"></c:import>
   
     <div class="postForm">
-      <h1>新建主题帖</h1> 
+      <h1>编辑主题帖</h1> 
       <form method="POST" name="postForm" >
         id:<input type="text" name="id" value="${post.id}" readonly><br/>
       	主题：<c:out value="${post.postName}"/><br/>
@@ -23,7 +26,7 @@
         <input type="submit" value="编辑主题帖" />
       </form>
     </div>
-    <a href="<c:url value="/${post.Id}" />">返回主题帖与跟帖页面</a>
+    <a href="<c:url value="/posts/${post.id}" />">返回主题帖与跟帖页面</a>
       
     <c:import url="Footer.jsp"></c:import>
   </body>

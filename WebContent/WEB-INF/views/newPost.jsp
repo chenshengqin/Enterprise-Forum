@@ -19,7 +19,13 @@
       <form method="POST" name="postForm" >
       	主题：<br/><textarea name="postName" cols="80" rows="1" ></textarea><br/>
         内容：<br/><textarea name="message" cols="80" rows="5"></textarea><br/><br/>
-        <input type="submit" value="发表主题帖" />
+        <c:if test="${not sessionScope.poster.locked}">
+          <input type="submit" value="发表主题帖"/>
+        </c:if>
+        <c:if test="${sessionScope.poster.locked}">
+          <input type="submit" value="发表主题帖" disabled/>
+          <br/>对不起，你的账户被锁定了！
+        </c:if>
       </form>
     </div>
     <a href="<c:url value="/" />">返回首页</a>

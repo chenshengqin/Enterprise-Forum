@@ -3,6 +3,11 @@
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -62,13 +67,50 @@ public class PosterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = POST)
-	public String processRegistration(@Valid Poster poster, Errors errors, HttpSession session) {
+	public String processRegistration(@Valid Poster poster, Errors errors, HttpSession session, HttpServletRequest req, HttpServletResponse res, Model model) {
 		if (errors.hasErrors()) {
 			return "registerForm";
 		}
 		poster.setLocked(false);
 		poster.setDeleted(false);
+		List<Poster> posterList = posterRepository.findAll();
+		for(Poster sqlPoster : posterList) {
+			if(poster.equals(sqlPoster)) {
+				model.addAttribute("errSameUserName", "errSameUserName");
+				return "registerForm";
+			}
+		}
+		
+		
 		poster = posterRepository.save(poster);
+		
+		// 保存cookie
+		boolean nameFlag = true;
+		boolean passwordFlag = true;
+		Cookie cookies[] = req.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("userName")) {
+					cookies[i].setValue(poster.getUserName());
+					nameFlag = false;
+				}
+				if (cookies[i].getName().equals("password")) {
+					cookies[i].setValue(poster.getPassword());
+					passwordFlag = false;
+				}
+			}
+		}
+		if(nameFlag) {
+			Cookie nameCookie = new Cookie("userName", poster.getUserName());
+			nameCookie.setMaxAge(20 * 60 * 60);
+			res.addCookie(nameCookie);
+		}
+		if(passwordFlag) {
+			Cookie passwordCookie = new Cookie("password", poster.getPassword());
+			passwordCookie.setMaxAge(20 * 60 * 60);
+			res.addCookie(passwordCookie);
+		}
+		
 		if(poster == null) {
 			System.out.println("Poster Null.");
 		}
