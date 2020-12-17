@@ -19,14 +19,13 @@
       <ul class="postList">
         <c:forEach items="${paginationSupport.items}" var="post" >
           <li id="post_<c:out value="${post.id}"/>">
-            <div class="postName"><c:out value="${post.postName}" /></div>
+            <div class="postName"><a href="<c:url value="/posts/${post.id}" />">${post.postName}</a></div>
             <div class="postTime">
               <fmt:formatDate value="${post.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
               by <c:out value="${post.poster.userName}" />
             </div>
             点击次数：<div class="clickTimes"><c:out value="${post.click}" /></div>
              回帖数：<div class="replyTimes"><c:out value="${post.follow}" /></div>
-              | <a href="<c:url value="/posts/${post.id}" />">查看</a>
           </li>
         </c:forEach>
       </ul>
@@ -39,7 +38,7 @@
       <a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
     </c:if>
     
-    <br/><a href="<c:url value="/" />">返回主题帖列表</a>
+    <br/><a href="<c:url value="/" />">返回首页</a>
     
     <c:import url="Footer.jsp"></c:import>
   </body>

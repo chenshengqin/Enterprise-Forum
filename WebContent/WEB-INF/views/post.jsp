@@ -14,10 +14,10 @@
   <c:import url="Banner.jsp"></c:import>
   
     <div class="postView">
-      <c:out value="${post.id}" />
-      <div class="postName"><c:out value="${post.postName}" /></div>
-      <div class="postMessage"><c:out value="${post.message}" /></div>
-      <div class="postTime">
+      id:<div class="postId"><c:out value="${post.id}" /></div>
+      主题：<div class="postName"><c:out value="${post.postName}" /></div>
+      内容：<div class="postMessage"><c:out value="${post.message}" /></div>
+      发帖时间：<div class="postTime">
         <fmt:formatDate value="${post.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
       </div>
     </div>
