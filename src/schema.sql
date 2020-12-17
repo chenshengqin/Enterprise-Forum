@@ -80,6 +80,16 @@ insert into Post (poster, postname, message, postedTime, follow, click, topped, 
 	true,
 	false
 );
+insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (
+	1,
+	'homework3',
+	'123456789123456789',
+	'2020-12-17 04:00:00',
+	0,
+	0,
+	false,
+	false
+);
 insert into Reply (poster, postId, message, postedTime, deleted) values (
 	1,
 	select id from Post where postname='homework2',
