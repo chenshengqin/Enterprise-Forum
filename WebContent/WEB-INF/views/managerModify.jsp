@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 <%@ page session="true" %>
-<jsp:useBean id="manager" class="forum.entity.Manager" scope="request"/>
 <html>
   <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -30,13 +29,13 @@
     
     <sf:form method="POST" commandName="manager">
     <sf:errors path="*" cssClass="error"/><br/><br/>
-	 姓名：<sf:input path="trueName" value = "${sessionScope.manager.trueName}"/><sf:errors path="trueName" cssClass="error"/><br/><br/>
-	 邮箱：<sf:input path="email" value = "${sessionScope.manager.email}"/><sf:errors path="email" cssClass="error"/><br/><br/>
-	用户名：<sf:input path="userName" value = "${sessionScope.manager.userName}" readonly = "true"/><sf:errors path="userName" cssClass="error"/>
+	 姓名：<sf:input path="trueName" value = "${manager.trueName}"/><sf:errors path="trueName" cssClass="error"/><br/><br/>
+	 邮箱：<sf:input path="email" value = "${manager.email}"/><sf:errors path="email" cssClass="error"/><br/><br/>
+	用户名：<sf:input path="userName" value = "${manager.userName}" readonly = "true"/><sf:errors path="userName" cssClass="error"/>
 	<c:if test="${not empty errSameUserName}">
 	    <font color="#FF0000">与已有用户名重复！</font>
 	</c:if><br/><br/>
-	 密码：<sf:password  path="password" value = "${sessionScope.manager.password}" /><sf:errors path="password" cssClass="error"/><br/><br/>
+	 密码：<sf:password  path="password" value = "${manager.password}" /><sf:errors path="password" cssClass="error"/><br/><br/>
      
     <input type="submit" value="确认修改" />
     </sf:form>

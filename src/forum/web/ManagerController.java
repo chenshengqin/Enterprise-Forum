@@ -130,7 +130,6 @@ public class ManagerController {
 				
 		model.addAttribute("paginationSupport", posterRepository.findPage(pageNo, pageSize));
 		return "managerShowPoster";
-		
 	}
 	/**
 	 * 实现锁定用户
@@ -213,7 +212,8 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/register" , method = GET)
-	public String register() {
+	public String register(Model model) {
+		model.addAttribute(new Manager());
 		return "managerRegisterForm";
 	}
 	/**
@@ -250,7 +250,8 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/modify", method = GET)
-	public String modify() {
+	public String modify(Model model, HttpSession session) {
+		model.addAttribute("manager", session.getAttribute("manager"));
 		return "managerModify";
 	}
 	/**
