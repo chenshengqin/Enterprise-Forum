@@ -32,7 +32,7 @@ public class Manager {
 	@Email
 	private String email;
 	
-	@NotNull
+
 	private Boolean deleted;
 
 	/**
