@@ -170,7 +170,7 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/edit/{postId}", method = RequestMethod.POST)
-	public String editPost(@RequestParam(value = "id") Long id, Model model,
+	public String editPost(@RequestParam(value = "postId") Long postId, Model model,
 							@RequestParam(value = "postName", defaultValue = "") String postName,
 							@RequestParam(value = "message", defaultValue = "") String message)
 			throws Exception {
@@ -182,14 +182,14 @@ public class PostController {
 			model.addAttribute("emptyMessage", "emptyMessage");
 		}
 		if(empty) {
-			return "newPost";
+			return "editPost";
 		}
 		
-		Post post = postRepository.findOne(id);
+		Post post = postRepository.findOne(postId);
 		post.setPostName(postName);
 		post.setMessage(message);
-		postRepository.updatePost(post, id);
-		return "redirect:/";
+		postRepository.updatePost(post, postId);
+		return "redirect:/posts/" + postId;
 	}
 	
 	/**
@@ -202,7 +202,7 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = "/ownPost", method = RequestMethod.GET)
-	public String ownPosts(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+	public String ownPost(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize, Model model, HttpSession session) {
 		Poster poster = (Poster) session.getAttribute("poster");
 		Long id = poster.getId();

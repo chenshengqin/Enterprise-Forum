@@ -6,7 +6,7 @@
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>编辑主题帖</title>
+    <title>管理员编辑主题帖</title>
     
     <link rel="stylesheet" 
           type="text/css" 
@@ -37,20 +37,14 @@
 	        <font color="#FF0000">标题为空！</font>
 	      </c:if><br/>
         内容：<c:out value="${post.message}"/><br/>
-        <textarea name="message" cols="50" rows="5"></textarea><br/><br/>
           <c:if test="${not empty emptyMessage}">
 	        <font color="#FF0000">内容为空！</font>
-	      </c:if><br/>
-        <c:if test="${post.poster.userName == sessionScope.poster.userName}">
+	      </c:if><br/><br/>
+        <textarea name="message" cols="50" rows="5"></textarea><br/><br/>
           <input type="submit" value="编辑主题帖" />
-        </c:if>
-        <c:if test="${post.poster.userName != sessionScope.poster.userName}">
-          <input type="submit" value="编辑主题帖" disabled/>
-          <br/>对不起，你不是发帖人！
-        </c:if>
       </form>
     </div>
-    <a href="<c:url value="/posts/${post.id}" />">返回主题帖与跟帖页面</a>
+    <a href="<c:url value="/manager/showPost/${post.id}" />">返回主题帖与跟帖页面</a>
       
     <c:import url="Footer.jsp"></c:import>
        <div class="htmleaf-container">

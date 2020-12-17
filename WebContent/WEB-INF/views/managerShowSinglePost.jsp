@@ -43,10 +43,8 @@
       </div>
     </div>
       
-    <c:if test="${post.poster.userName == sessionScope.poster.userName}">
-      <a href="<c:url value="/posts/edit/${post.id}" />">编辑主题帖 |</a>
-    </c:if>
-    <a href="<c:url value="/" />">返回主题帖列表</a>
+      <a href="<c:url value="/manager/showPost/edit/${post.id}" />">编辑主题帖 |</a>
+    <a href="<c:url value="/manager/showPost" />">返回主题帖列表</a>
     
     <div class="replyList">
       <h1>最近跟帖</h1>
@@ -64,28 +62,11 @@
     </div>
     每页${paginationSupport.pageSize}条跟帖，  第${paginationSupport.currentPageNo}/${paginationSupport.totalPageCount}页,共${paginationSupport.totalCount}条跟帖
     <c:if test="${paginationSupport.previousPage}">
-      <a href="<c:url value="/posts/${post.id}?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
+      <a href="<c:url value="/manager/showPost/${post.id}?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
     </c:if>
     <c:if test="${paginationSupport.nextPage}">
-      <a href="<c:url value="/posts/${post.id}?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
+      <a href="<c:url value="/manager/showPost/${post.id}?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
     </c:if>
-    
-    <br/>
-    <form method="POST">
-      跟帖回复：<br/><textarea name="replyMessage" cols="50" rows="5"></textarea><br/>
-      <c:if test="${not empty emptyPostName}">
-	    <font color="#FF0000">标题为空！</font>
-	  </c:if><br/>
-      <c:choose>
-        <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
-          <input type="submit" value="回复" />
-        </c:when>
-        <c:otherwise>
-          对不起，你还没有登录，请登录后回复！<br/>
-          <input type="submit" value="回复" disabled/>
-        </c:otherwise>
-      </c:choose>
-    </form>
     
     <c:import url="Footer.jsp"></c:import>
     <div class="htmleaf-container">

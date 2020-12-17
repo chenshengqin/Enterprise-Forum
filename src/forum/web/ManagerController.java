@@ -1,29 +1,30 @@
 package forum.web;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
-import java.util.List;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import forum.db.ManagerRepository;
 import forum.db.PostRepository;
 import forum.db.PosterRepository;
+import forum.db.ReplyRepository;
 import forum.entity.Manager;
-import forum.entity.Poster;
+import forum.entity.Post;
 
 /**
  * 管理员控制类
@@ -39,6 +40,9 @@ public class ManagerController {
 	private PostRepository postRepository;
 	@Autowired
 	private PosterRepository posterRepository;
+	@Autowired
+	private ReplyRepository replyRepository;
+	
 	
 	/**
 	 * 返回管理员登录界面
@@ -73,7 +77,7 @@ public class ManagerController {
 			session.setAttribute("manager", manager);
 			return "managerHome";
 		}else {
-			return "loginError";
+			return "managerLoginError";
 		}
 	}
 	
@@ -160,6 +164,13 @@ public class ManagerController {
 		this.postRepository.setTopOrNo(postId, true);
 		return "redirect:/manager/showPost";
 	}
+	
+	@RequestMapping(value = "/showPost/cancelputToTop/{postId}" , method = GET)
+	public String cancelPutToTop(@PathVariable("postId")long postId) {
+		this.postRepository.setTopOrNo(postId, false);
+		return "redirect:/manager/showPost";
+	}
+	
 	/**
 	 * 返回Manager列表，并实现分页服务
 	 * @param model
@@ -250,4 +261,68 @@ public class ManagerController {
 		managerRepository.modify(nowManager.getId(),manager);
 		return "redirect:/manager";
 	}
+	
+	/**
+	 * 查看单个主题
+	 * 
+	 * @param postId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/showPost/{postId}", method = RequestMethod.GET)
+	public String post(@PathVariable("postId") long postId, Model model,
+						@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+						@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+		Post post = postRepository.findOne(postId);
+		model.addAttribute(post);
+		model.addAttribute("paginationSupport", replyRepository.findPage(postId, pageNo, pageSize));
+		return "post";
+	}
+	
+	/**
+	 * 打开编辑主题帖页面
+	 * 
+	 * @param postId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/showPost/edit/{postId}", method = RequestMethod.GET)
+	public String getEditPost(@PathVariable("postId") long postId, Model model) {
+		Post post = postRepository.findOne(postId);
+		model.addAttribute(post);
+		return "managerEditPost";
+	}
+	
+	/**
+	 * 编辑一个主题
+	 * 
+	 * @param request
+	 * @param form
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/showPost/edit/{postId}", method = RequestMethod.POST)
+	public String editPost(@RequestParam(value = "postId") Long postId, Model model,
+							@RequestParam(value = "postName", defaultValue = "") String postName,
+							@RequestParam(value = "message", defaultValue = "") String message)
+			throws Exception {
+		boolean empty = false;
+		if(postName.equals("")) {
+			model.addAttribute("emptyPostName", "emptyPostName");
+		}
+		if(message.equals("")) {
+			model.addAttribute("emptyMessage", "emptyMessage");
+		}
+		if(empty) {
+			return "managerEditPost";
+		}
+		
+		Post post = postRepository.findOne(postId);
+		post.setPostName(postName);
+		post.setMessage(message);
+		postRepository.updatePost(post, postId);
+		return "redirect:/manager/showPost/{postId}" + postId;
+		}
 }

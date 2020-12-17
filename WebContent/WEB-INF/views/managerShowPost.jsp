@@ -37,10 +37,13 @@
             </div>
             点击次数：<div class="clickTimes"><c:out value="${post.click}" /></div>
              回帖数：<div class="replyTimes"><c:out value="${post.follow}" /></div>
-              | <a href="<c:url value="/posts/${post.id}" />">查看</a>
+              | <a href="<c:url value="/manager/showPost/${post.id}" />">查看</a>
               | <a href="<c:url value="/manager/showPost/deletePost/${post.id}"/>">删帖</a> 
               <c:choose>
-              	<c:when test = "${post.topped == true}">|已置顶</c:when>
+              	<c:when test = "${post.topped == true}">
+              	| <a href="<c:url value="/manager/showPost/cancelputToTop/${post.id}"/>">取消置顶</a>
+              	</c:when>
+              	
               	<c:when test = "${post.topped == false }">
               		<a href="<c:url value="/manager/showPost/putToTop/${post.id}"/>">|置顶</a>
               	</c:when>
@@ -51,10 +54,10 @@
     </div>
     每页${paginationSupport.pageSize}条主题帖，  第${paginationSupport.currentPageNo}/${paginationSupport.totalPageCount}页,共${paginationSupport.totalCount}条主题帖
     <c:if test="${paginationSupport.previousPage}">
-      <a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
+      <a href="<c:url value="/manager/showPost?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
     </c:if>
     <c:if test="${paginationSupport.nextPage}">
-      <a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
+      <a href="<c:url value="/manager/showPost?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
     </c:if>
     
     <c:import url="Footer.jsp"></c:import>
