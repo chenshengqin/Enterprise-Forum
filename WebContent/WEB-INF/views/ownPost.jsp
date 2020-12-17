@@ -24,8 +24,16 @@
               <fmt:formatDate value="${post.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
               by <c:out value="${post.poster.userName}" />
             </div>
-            点击次数：<div class="clickTimes"><c:out value="${post.click}" /></div>
-             回帖数：<div class="replyTimes"><c:out value="${post.follow}" /></div>
+            <div class="clickTimes">点击次数：<c:out value="${post.click}" /></div>
+            <div class="replyTimes">回帖数：<c:out value="${post.follow}" /></div>
+            <div class="postTopped">置顶：
+              <c:if test="${post.topped}">
+                已置顶
+              </c:if>
+              <c:if test="${not post.topped}">
+                未置顶
+              </c:if>
+            </div>
           </li>
         </c:forEach>
       </ul>

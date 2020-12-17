@@ -82,7 +82,9 @@ public class PostController {
 		//TODO
 		//解决查看主题回帖的问题
 		Post post = postRepository.findOne(postId);
-		post.setClick(post.getClick() + 1);
+		if(pageNo != 1) {
+			post.setClick(post.getClick() + 1);
+		}
 		postRepository.updateClick(post);
 		model.addAttribute(post);
 		model.addAttribute("paginationSupport", replyRepository.findPage(postId, pageNo, pageSize));
@@ -115,7 +117,9 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{postId}", method = RequestMethod.POST)
-	public String reply(@PathVariable("postId") long postId, HttpServletRequest request, String replyMessage, Model model, HttpSession session) {
+	public String reply(@PathVariable("postId") long postId, HttpServletRequest request,
+							@RequestParam(value = "replyMessage", defaultValue = "") String replyMessage,
+							Model model, HttpSession session) {
 		replyRepository
 				.save(new Reply(null, (Poster) session.getAttribute("poster"), postId, replyMessage, new Date()));
 		Post post = postRepository.findOne(postId);
@@ -149,7 +153,7 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/edit/{postId}", method = RequestMethod.POST)
-	public String editPost(@RequestParam(value = "id", defaultValue = "") Long id,
+	public String editPost(@RequestParam(value = "id") Long id,
 							@RequestParam(value = "postName", defaultValue = "") String postName,
 							@RequestParam(value = "message", defaultValue = "") String message)
 			throws Exception {
