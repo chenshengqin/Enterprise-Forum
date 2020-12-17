@@ -51,7 +51,7 @@
     <a href="<c:url value="/" />">返回首页</a>
       
     <c:import url="Footer.jsp"></c:import>
-       <div class="htmleaf-container">
+    <div class="htmleaf-container">
 	<div class="wrapper">
 		<ul class="bg-bubbles">
 			<li></li>

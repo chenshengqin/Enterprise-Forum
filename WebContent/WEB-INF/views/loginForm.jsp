@@ -35,10 +35,8 @@
     </form>
     
     <c:import url="Footer.jsp"></c:import>
-       <div class="htmleaf-container">
+    <div class="htmleaf-container">
 	<div class="wrapper">
-
-		
 		<ul class="bg-bubbles">
 			<li></li>
 			<li></li>
@@ -52,7 +50,7 @@
 			<li></li>
 		</ul>
 	</div>
-</div>
+	</div>
     </div>
   </body>
 </html>
