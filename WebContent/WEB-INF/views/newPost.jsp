@@ -18,7 +18,13 @@
       <h1>新建主题帖</h1> 
       <form method="POST" name="postForm" >
       	主题：<br/><textarea name="postName" cols="80" rows="1" ></textarea><br/>
-        内容：<br/><textarea name="message" cols="80" rows="5"></textarea><br/><br/>
+	      <c:if test="${not empty emptyPostName}">
+	        <font color="#FF0000">标题为空！</font>
+	      </c:if><br/>
+        内容：<br/><textarea name="message" cols="80" rows="5"></textarea><br/>
+          <c:if test="${not empty emptyMessage}">
+	        <font color="#FF0000">内容为空！</font>
+	      </c:if><br/><br/>
         <c:if test="${not sessionScope.poster.locked}">
           <input type="submit" value="发表主题帖"/>
         </c:if>
