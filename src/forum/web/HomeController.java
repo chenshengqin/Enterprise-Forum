@@ -3,6 +3,9 @@
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,7 @@ public class HomeController {
 	 */
 	@RequestMapping(method = GET) // 相应的请求方法
 	public String home(Model model,
+			HttpServletRequest req, HttpServletResponse res, HttpSession session,
 			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 		/*
@@ -51,6 +55,28 @@ public class HomeController {
 		 * 返回相应jsp视图，即返回/WEB-INF/views/home.jsp
 		 * 
 		 */
+		
+		// 实现自动登录
+		Cookie[] cookies = req.getCookies();
+		if (cookies != null) {
+			String userName = "";
+			String password = "";
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals("userName")) {
+					userName = cookies[i].getValue();
+				}
+				if (cookies[i].getName().equals("password")) {
+					password = cookies[i].getValue();
+				}
+			}
+			if (!userName.equals("") && !password.equals("")) {
+				Poster poster = posterRepository.findByUserName(userName, password);
+				if (poster != null) {
+					session.setAttribute("poster", poster);
+				}
+			}
+		}
+		
 		model.addAttribute("paginationSupport", postRepository.findPage(pageNo, pageSize));
 		return "home";
 	}
@@ -75,7 +101,8 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/login", method = POST)
 	public String processLogin(@RequestParam(value = "userName", defaultValue = "") String userName,
-			@RequestParam(value = "password", defaultValue = "") String password, HttpSession session) {
+			@RequestParam(value = "password", defaultValue = "") String password, HttpSession session,
+			HttpServletRequest req, HttpServletResponse res) {
 		/*
 		 * @RequestParam注解：
 		 * 
@@ -90,6 +117,34 @@ public class HomeController {
 		Poster poster = posterRepository.findByUserName(userName, password);
 		if (poster != null) {
 			session.setAttribute("poster", poster);
+			
+			// 保存cookie
+			boolean nameFlag = true;
+			boolean passwordFlag = true;
+			Cookie cookies[] = req.getCookies();
+			if (cookies != null) {
+				for (int i = 0; i < cookies.length; i++) {
+					if (cookies[i].getName().equals("userName")) {
+						cookies[i].setValue(userName);
+						nameFlag = false;
+					}
+					if (cookies[i].getName().equals("password")) {
+						cookies[i].setValue(password);
+						passwordFlag = false;
+					}
+				}
+			}
+			if(nameFlag) {
+				Cookie nameCookie = new Cookie("userName", userName);
+				nameCookie.setMaxAge(20 * 60 * 60);
+				res.addCookie(nameCookie);
+			}
+			if(passwordFlag) {
+				Cookie passwordCookie = new Cookie("password", password);
+				passwordCookie.setMaxAge(20 * 60 * 60);
+				res.addCookie(passwordCookie);
+			}
+			
 			return "redirect:/";
 		} else {
 			return "loginError";
@@ -104,7 +159,15 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/logout", method = GET)
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, HttpServletRequest req, HttpServletResponse res) {
+		// 覆盖有效cookie
+		Cookie nameCookie = new Cookie("userName", "");
+		nameCookie.setMaxAge(0);
+		res.addCookie(nameCookie);
+		Cookie passwordCookie = new Cookie("password", "");
+		passwordCookie.setMaxAge(0);
+		res.addCookie(passwordCookie);
+		
 		session.removeAttribute("poster");
 		session.invalidate();
 		return "redirect:/";
