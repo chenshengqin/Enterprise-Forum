@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>${post.postName}</title>
-    
     <link rel="stylesheet" 
           type="text/css" 
           href="<c:url value="/resources/style.css" />" >
@@ -22,7 +24,7 @@
     <c:if test="${post.postName} == ${session.userName}">
       <a href="<c:url value="/posts/edit/${post.id}" />">编辑主题帖</a>
     </c:if>
-    <a href="<c:url value="/posts" />">返回主题帖列表</a>
+    <a href="<c:url value="/" />">返回主题帖列表</a>
     
     <div class="postList">
       <h1>最近跟帖</h1>
