@@ -18,15 +18,12 @@
     <div class="postList">
       <h1>最近主题</h1>
       <ul class="postList">
-        <c:forEach items="${paginationSupport.items}" var="poster" >
-          <li id="post_<c:out value="${poster.id}"/>">
-            <div class="posterName">用户名: <c:out value="${poster.userName}" /></div>
-            <c:if test = "${poster.locked == false}">
-            |<a href="<c:url value="/manager/showPoster/banPoster/${poster.id}" />">锁定</a>
-            </c:if>
-			<c:if test = "${poster.locked == true}">
-            |<a href="<c:url value="/manager/showPoster/unbanPoster/${poster.id}" />">解除锁定</a>
-            </c:if>
+        <c:forEach items="${paginationSupport.items}" var="manager" >
+          <li id="post_<c:out value="${manager.id}"/>">
+            <div class="posterName">管理员用户名: <c:out value="${manager.userName}" /></div>
+            |<a href="<c:url value="/manager/showPoster/banPoster/${poster.id}" />">禁言</a>
+            
+
           </li>
         </c:forEach>
       </ul>

@@ -111,13 +111,45 @@ public class ManagerController {
 		return "managerShowPoster";
 		
 	}
-	
+	/**
+	 * 实现锁定用户
+	 * @param posterId
+	 * @return
+	 */
 	@RequestMapping(value = "/showPoster/banPoster/{posterId}" , method = GET)
 	public String banPoster(@PathVariable("posterId")long posterId) {
-		this.posterRepository.
-		return null;
+		this.posterRepository.setLockOrNo(posterId, true);
+		return "redirect:/manager/showPoster";
 	}
 	
+	/**
+	 * 实现解除用户锁定
+	 * @param posterId
+	 * @return
+	 */
+	@RequestMapping(value = "/showPoster/unbanPoster/{posterId}" , method = GET)
+	public String unbanPoster(@PathVariable("posterId")long posterId) {
+		this.posterRepository.setLockOrNo(posterId, false);
+		return "redirect:/manager/showPoster";
+	}
+	
+	/**
+	 * 实现帖子置顶功能
+	 * @param postId
+	 * @return
+	 */
+	@RequestMapping(value = "/showPost/putToTop/{postId}" , method = GET)
+	public String putToTop(@PathVariable("postId")long postId) {
+		this.postRepository.setTopOrNo(postId, true);
+		return "redirect:/manager/showPost";
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
 	@RequestMapping(value = "/showManager",method = GET)
 	public String showManager(Model model,
 			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,

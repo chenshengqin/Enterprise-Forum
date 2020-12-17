@@ -29,7 +29,7 @@
              回帖数：<div class="replyTimes"><c:out value="${post.follow}" /></div>
               | <a href="<c:url value="/posts/${post.id}" />">查看</a>
               | <a href="<c:url value="/manager/showPost/deletePost/${post.id}"/>">删帖</a> 
-              | <a href="<c:url value="/manager/putToTop/${post.id}"/>">置顶</a>
+              | <a href="<c:url value="/manager/showPost/putToTop/${post.id}"/>">置顶</a>
           </li>
         </c:forEach>
       </ul>
