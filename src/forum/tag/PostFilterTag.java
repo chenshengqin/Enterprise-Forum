@@ -77,16 +77,21 @@ public class PostFilterTag extends SimpleTagSupport {
 	 */
 	@Override
 	public void doTag() throws JspException, IOException {
-		JspWriter writer = getJspContext().getOut();
-		List<Post> validPostList = new ArrayList<Post>();
-		for(Post post : postList) {
-			String postName = post.getPostName();
-			if(postName.indexOf(searchText) != -1) {
-				validPostList.add(post);
+		if(searchText != null) {
+			List<Post> validPostList = new ArrayList<Post>();
+			for(Post post : postList) {
+				String postName = post.getPostName();
+				if(postName.indexOf(searchText) != -1) {
+					validPostList.add(post);
+				}
 			}
+			int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo);
+			paginationSupport = new PaginationSupport<>(validPostList, validPostList.size(), startIndex);
+			getJspContext().setAttribute("paginationSupport", paginationSupport);
+		}else {
+			int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo);
+			paginationSupport = new PaginationSupport<>(postList, postList.size(), startIndex);
+			getJspContext().setAttribute("paginationSupport", paginationSupport);
 		}
-		int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo);
-		paginationSupport = new PaginationSupport<>(validPostList, validPostList.size(), startIndex);
-		getJspContext().setAttribute("paginationSupport", paginationSupport);
 	}
 }

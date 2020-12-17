@@ -104,7 +104,7 @@ public class PostController {
 			throws Exception {
 		postRepository
 				.save(new Post(null, (Poster) session.getAttribute("poster"), form.getPostName(), form.getMessage(), new Date()));
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 	/**

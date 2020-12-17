@@ -20,6 +20,7 @@
       <input type="submit" value="搜索" />
     </form>
     
+    <c:if test="${not empty List}">
     <c:choose>
       <c:when test="${not empty sessionScope.pageNo}">
         <MyTag:PostFilter postList="${List}" searchText="${sessionScope.searchText}" pageNo="${sessionScope.pageNo}"/>
@@ -28,6 +29,7 @@
         <MyTag:PostFilter postList="${List}" searchText="${sessionScope.searchText}" pageNo="1"/>
       </c:otherwise>
     </c:choose>
+    </c:if>
     
     <div class="postList">
       <h1>主题</h1>

@@ -129,10 +129,11 @@ public class HomeController {
 	public String getSearch(Model model, HttpSession session,
 			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-			@RequestParam(value = "searchText", defaultValue = "1") String searchText) {
+			@RequestParam(value = "searchText") String searchText) {
 		session.setAttribute("pageNo", pageNo);
 		session.setAttribute("searchText", searchText);
-		model.addAttribute(postRepository.findAll());
+		model.addAttribute("List", postRepository.findAll());
+		//System.out.println(postRepository.findAll() == null);
 		
 		return "search";
 	}
