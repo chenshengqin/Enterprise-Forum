@@ -3,7 +3,7 @@ create table Poster (
 	username varchar(20) unique not null,
 	password varchar(20) not null,
 	truename varchar(30) not null,
-	email varchar(30) not null,
+	email varchar(30),
 	locked boolean not null,
 	deleted boolean not null
 );
@@ -170,7 +170,7 @@ insert into Post (poster, postname, message, postedTime, follow, click, topped, 
 	'2020-12-17 07:00:00',
 	0,
 	0,
-	false,
+	true,
 	false
 );
 insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (
@@ -180,7 +180,7 @@ insert into Post (poster, postname, message, postedTime, follow, click, topped, 
 	'2020-12-17 08:00:00',
 	0,
 	0,
-	false,
+	true,
 	false
 );
 insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (

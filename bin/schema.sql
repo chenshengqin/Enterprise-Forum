@@ -3,7 +3,7 @@ create table Poster (
 	username varchar(20) unique not null,
 	password varchar(20) not null,
 	truename varchar(30) not null,
-	email varchar(30) not null,
+	email varchar(30),
 	locked boolean not null,
 	deleted boolean not null
 );

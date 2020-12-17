@@ -44,6 +44,8 @@ public class JdbcPostRepository implements PostRepository {
 	private static final String SELECT_PAGE_POST_BY_POSTER_ID_UNTOPPED = SELECT_POST_BY_POSTER_ID_UNTOPPED + " limit ? offset  ?";
 	private static final String SELECT_PAGE_POSTS_TOPPED = SELECT_POST + " and p.topped=true order by p.postedTime desc limit ? offset  ?";
 	private static final String SELECT_PAGE_POSTS_UNTOPPED = SELECT_POST + " and p.topped=false order by p.postedTime desc limit ? offset  ?";
+	private static final String SELECT_PAGE_POSTS_TOPPED_UNLIMITED = SELECT_POST + " and p.topped=true order by p.postedTime desc";
+
 	
 	private static final String DELETE_POST = "update Post set deleted = true";
 	private static final String SET_POST_TOP = "update Post set topped = ?";
@@ -132,8 +134,33 @@ public class JdbcPostRepository implements PostRepository {
 		if (totalCount < 1)
 			return new PaginationSupport<Post>(new ArrayList<Post>(0), 0);
 		
+		List<Post> toppedItems = jdbc.query(SELECT_PAGE_POSTS_TOPPED_UNLIMITED, new PostRowMapper());
 		List<Post> items = jdbc.query(SELECT_PAGE_POSTS_TOPPED, new PostRowMapper(), pageSize, startIndex);
-		items.addAll(jdbc.query(SELECT_PAGE_POSTS_UNTOPPED, new PostRowMapper(), pageSize, startIndex));
+		
+		int toppedPages, notToppedPageNo, notToppedStartIndex = 0;
+		if(toppedItems.size() == 0) {
+			toppedPages = 0;
+			notToppedPageNo = pageNo;
+			notToppedStartIndex = 0;
+		}else if(toppedItems.size() % pageSize != 0) {
+			toppedPages = (toppedItems.size() / pageSize) + 1;
+			notToppedPageNo = pageNo - toppedPages + 1;
+			if(toppedPages == pageNo) {
+				notToppedStartIndex = 0;
+			}else {
+				notToppedStartIndex = PaginationSupport.convertFromPageToStartIndex(notToppedPageNo, pageSize) - (toppedItems.size() % pageSize);
+			}
+		}else {
+			toppedPages = toppedItems.size() / pageSize;
+			notToppedPageNo = pageNo - toppedPages;
+			notToppedStartIndex = PaginationSupport.convertFromPageToStartIndex(notToppedPageNo, pageSize);
+		}
+		
+		if(items.size() < pageSize) {
+			if(pageNo >= toppedPages) {
+				items.addAll(jdbc.query(SELECT_PAGE_POSTS_UNTOPPED, new PostRowMapper(), pageSize-items.size(), notToppedStartIndex));
+			}
+		}
 		PaginationSupport<Post> p = new PaginationSupport<Post>(items, totalCount, pageSize, startIndex);
 		return p;
 	}
