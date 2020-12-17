@@ -66,7 +66,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addInterceptors(InterceptorRegistry registry) {
 
 		registry.addInterceptor(new PosterInterceptor())
-				.addPathPatterns(new String[] { "/posts", "/posts/**", "/poster", "/poster/**" })// 添加拦截
+				.addPathPatterns(new String[] { "/posts", "/posts/ownPost", "/posts/edit", "/posts/newPost", "/posts/edit/**", "/poster", "/poster/**" })// 添加拦截
 				.excludePathPatterns("/poster/register");// excludePathPatterns 排除拦截
 
 		super.addInterceptors(registry);
