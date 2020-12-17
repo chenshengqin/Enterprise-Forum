@@ -12,7 +12,7 @@
           href="<c:url value="/resources/style.css" />" >
   </head>
   <body>
-    <c:import url="managerBanner.jsp"></c:import>
+    <c:import url="Banner.jsp"></c:import>
      
     <hr>
     <div class="postList">

@@ -13,7 +13,7 @@
   </head>
   
   <body>
-    <c:import url="managerBanner.jsp"></c:import>
+    <c:import url="Banner.jsp"></c:import>
   	<a href="<c:url value="/manager/showPost" />">编辑帖子</a>
   	   	<a href="<c:url value="/manager/showPoster" />">查看用户列表</a>
    	<a href="<c:url value="/manager/showManager" />">查看管理员列表</a>
