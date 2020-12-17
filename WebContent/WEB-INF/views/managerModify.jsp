@@ -24,7 +24,9 @@
 	<c:if test="${not empty errSameUserName}">
 	    <font color="#FF0000">与已有用户名重复！</font>
 	</c:if><br/><br/>
+	是否删除：<sf:input path="deleted" value = "${sessionScope.manager.deleted}" readonly = "true"/><sf:errors path="userName" cssClass="error"/>
 	 密码：<sf:password  path="password" value = "${sessionScope.manager.password}" /><sf:errors path="password" cssClass="error"/><br/><br/>
+     
     <input type="submit" value="确认修改" />
     </sf:form>
     
