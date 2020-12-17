@@ -25,4 +25,11 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+  <jsp-config>
+  	<taglib>
+    	<taglib-uri>MyTag</taglib-uri>
+        <taglib-location>/WEB-INF/tld/MyTag.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+  
 </web-app>

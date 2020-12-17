@@ -116,7 +116,24 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/search", method = GET)
-	public String showSearchForm() {
-		return "searchForm";
+	public String showSearch() {
+		return "search";
+	}
+	
+	/**
+	 * 搜索
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/search", method = POST)
+	public String getSearch(Model model,
+			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+			@RequestParam(value = "searchText", defaultValue = "1") String searchText) {
+		
+		
+		model.addAttribute(postRepository.findAll());
+		
+		return "search";
 	}
 }
