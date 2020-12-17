@@ -27,6 +27,7 @@
     <c:import url="Banner.jsp"></c:import>
   
     <h1>注册</h1>
+    <a href="<c:url value="/" />">主页</a>
     
     <sf:form method="POST" commandName="poster">
 	 姓名：<sf:input path="trueName" /><sf:errors path="trueName" cssClass="error"/><br/><br/>
