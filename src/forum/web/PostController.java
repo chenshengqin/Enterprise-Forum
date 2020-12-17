@@ -105,9 +105,11 @@ public class PostController {
 		boolean empty = false;
 		if(form.getPostName() == null || form.getPostName().equals("")) {
 			model.addAttribute("emptyPostName", "emptyPostName");
+			empty = true;
 		}
 		if(form.getMessage() == null || form.getMessage().equals("")) {
 			model.addAttribute("emptyMessage", "emptyMessage");
+			empty = true;
 		}
 		if(empty) {
 			return "newPost";
@@ -170,18 +172,22 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/edit/{postId}", method = RequestMethod.POST)
-	public String editPost(@RequestParam(value = "postId") Long postId, Model model,
+	public String editPost(@PathVariable("postId") Long postId, Model model,
 							@RequestParam(value = "postName", defaultValue = "") String postName,
 							@RequestParam(value = "message", defaultValue = "") String message)
 			throws Exception {
 		boolean empty = false;
 		if(postName.equals("")) {
 			model.addAttribute("emptyPostName", "emptyPostName");
+			empty = true;
 		}
 		if(message.equals("")) {
 			model.addAttribute("emptyMessage", "emptyMessage");
+			empty = true;
 		}
 		if(empty) {
+			Post post = postRepository.findOne(postId);
+			model.addAttribute(post);
 			return "editPost";
 		}
 		
