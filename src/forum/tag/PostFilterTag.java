@@ -13,10 +13,8 @@ import forum.web.PaginationSupport;
 /**
  * 过滤非搜索文本的主题帖
  * 
- * @ClassName: PostFilter
  * @author: CN.CSQ
  * @version: 1.0
- * @date: 2020-12-17
  */
 public class PostFilterTag extends SimpleTagSupport {
 	private List<Post> postList;

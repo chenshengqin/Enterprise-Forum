@@ -10,10 +10,8 @@ import org.hibernate.validator.constraints.Email;
 /**
  * 管理员对象类
  * 
- * @ClassName: Manger
  * @author: CN.CSQ
  * @version: 1.0
- * @date: 2020-12-16
  */
 public class Manager {
 	

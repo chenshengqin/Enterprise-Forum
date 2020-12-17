@@ -21,7 +21,7 @@ import forum.entity.Poster;
 /**
  * 系统主页控制类
  * 
- * @author 
+ * @author CN.CSQ
  * @version v1.0
  */
 @Controller // 控制定义

@@ -11,10 +11,8 @@ import org.hibernate.validator.constraints.Email;
 /**
  * 用户对象类
  * 
- * @ClassName: Poster
  * @author: CN.CSQ
  * @version: 1.0
- * @date: 2020-12-16
  */
 public class Poster {
 
