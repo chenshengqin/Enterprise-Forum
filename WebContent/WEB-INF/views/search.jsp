@@ -1,33 +1,21 @@
-﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="true" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-    <title>主页</title>
-	
-    <link rel="stylesheet" 
-          type="text/css" 
-          href="<c:url value="/resources/style.css" />" >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>搜索</title>
   </head>
   <body>
     <c:import url="Banner.jsp"></c:import>
-  
     
-    <c:choose>
-      <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
-        <a href="<c:url value="/posts/newPost" />">新建主题帖</a> |
-        <a href="<c:url value="/posts/own" />">查看自己的主题帖</a> |
-        <a href="<c:url value="/logout" />">注销</a> |
-      </c:when>
-      <c:otherwise>
-        <a href="<c:url value="/login" />">登录</a> |
-        <a href="<c:url value="/poster/register" />">注册</a> |
-      </c:otherwise>
-    </c:choose>
-    <a href="<c:url value="/search" />">搜索</a> |
-    <a href="<c:url value="/manager" />">管理</a>
+    <form action="">
+      <input type="text" name="searchText" /><br/>
+      <input type="submit" value="搜索" />
+    </form>
     
-    <hr>
     <div class="postList">
       <h1>最近主题</h1>
       <ul class="postList">
