@@ -40,7 +40,10 @@
               | <a href="<c:url value="/manager/showPost/${post.id}" />">查看</a>
               | <a href="<c:url value="/manager/showPost/deletePost/${post.id}"/>">删帖</a> 
               <c:choose>
-              	<c:when test = "${post.topped == true}">|已置顶</c:when>
+              	<c:when test = "${post.topped == true}">
+              	| <a href="<c:url value="/manager/showPost/cancelputToTop/${post.id}"/>">取消置顶</a>
+              	</c:when>
+              	
               	<c:when test = "${post.topped == false }">
               		<a href="<c:url value="/manager/showPost/putToTop/${post.id}"/>">|置顶</a>
               	</c:when>

@@ -164,6 +164,13 @@ public class ManagerController {
 		this.postRepository.setTopOrNo(postId, true);
 		return "redirect:/manager/showPost";
 	}
+	
+	@RequestMapping(value = "/showPost/cancelputToTop/{postId}" , method = GET)
+	public String cancelPutToTop(@PathVariable("postId")long postId) {
+		this.postRepository.setTopOrNo(postId, false);
+		return "redirect:/manager/showPost";
+	}
+	
 	/**
 	 * 返回Manager列表，并实现分页服务
 	 * @param model
