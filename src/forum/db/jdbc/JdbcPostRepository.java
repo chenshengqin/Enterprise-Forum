@@ -143,7 +143,7 @@ public class JdbcPostRepository implements PostRepository {
 	}
 
 	@Override
-	public PaginationSupport<Post> findPageById(long posterId, int pageNo, int pageSize) {
+	public PaginationSupport<Post> findPageByPosterId(long posterId, int pageNo, int pageSize) {
 		int totalCount = (int) countByPosterId(posterId);
 		int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
 		if (totalCount < 1)

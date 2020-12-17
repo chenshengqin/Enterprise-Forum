@@ -58,7 +58,7 @@ public class PostController {
 	/**
 	 * 新建主题帖页面
 	 * 
-	 * @param count
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/newPost", method = RequestMethod.GET)
@@ -148,7 +148,7 @@ public class PostController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/newPost", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit/{postId}", method = RequestMethod.POST)
 	public String editPost(@RequestParam(value = "id", defaultValue = "") Long id,
 							@RequestParam(value = "postName", defaultValue = "") String postName,
 							@RequestParam(value = "message", defaultValue = "") String message)
@@ -163,17 +163,18 @@ public class PostController {
 	/**
 	 * 自己的主题帖
 	 * 
-	 * @param count
+	 * @param pageNo
+	 * @param pageSize
+	 * @param model
+	 * @param session
 	 * @return
 	 */
 	@RequestMapping(value = "/ownPost", method = RequestMethod.GET)
 	public String ownPosts(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize, Model model, HttpSession session) {
-		
 		Poster poster = (Poster) session.getAttribute("poster");
 		Long id = poster.getId();
-		
-		model.addAttribute("paginationSupport",postRepository.findPage(pageNo, pageSize));
+		model.addAttribute("paginationSupport", postRepository.findPageByPosterId(id, pageNo, pageSize));
 		return "ownPost";
 	}
 }
