@@ -16,7 +16,7 @@
     <c:choose>
       <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
         <a href="<c:url value="/posts/newPost" />">新建主题帖</a> |
-        <a href="<c:url value="/posts/own" />">查看自己的主题帖</a> |
+        <a href="<c:url value="/posts/ownPost" />">查看自己的主题帖</a> |
         <a href="<c:url value="/logout" />">注销</a> |
       </c:when>
       <c:otherwise>
