@@ -8,9 +8,6 @@
     <title>登录错误</title>
     <link rel="stylesheet" 
           type="text/css" 
-          href="<c:url value="/resources/style.css" />" >
-          <link rel="stylesheet" 
-          type="text/css" 
           href="<c:url value="/resources/styles.css" />" >
     <style>
     *{
