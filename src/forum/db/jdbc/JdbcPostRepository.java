@@ -40,6 +40,8 @@ public class JdbcPostRepository implements PostRepository {
 	private static final String UPDATE_POST_FOLLOW = "update Post set follow=? where deleted=false and id=?";
 	private static final String UPDATE_POST_CLICK = "update Post set click=? where deleted=false and id=?";
 	
+	private static final String SELECT_PAGE_POST_BY_POSTER_ID_TOPPED = SELECT_POST_BY_POSTER_ID_TOPPED + " limit ? offset  ?";
+	private static final String SELECT_PAGE_POST_BY_POSTER_ID_UNTOPPED = SELECT_POST_BY_POSTER_ID_UNTOPPED + " limit ? offset  ?";
 	private static final String SELECT_PAGE_POSTS_TOPPED = SELECT_POST + " and p.topped=true order by p.postedTime desc limit ? offset  ?";
 	private static final String SELECT_PAGE_POSTS_UNTOPPED = SELECT_POST + " and p.topped=false order by p.postedTime desc limit ? offset  ?";
 	
@@ -69,6 +71,11 @@ public class JdbcPostRepository implements PostRepository {
 	@Override
 	public long count() {
 		return jdbc.queryForLong("select count(id) from Post where deleted=false");
+	}
+	
+	@Override
+	public long countByPosterId(long posterId) {
+		return jdbc.queryForLong("select count(id) from Post where deleted=false and poster=?", posterId);
 	}
 
 	@Override
@@ -127,6 +134,19 @@ public class JdbcPostRepository implements PostRepository {
 	@Override
 	public void updateClick(Post post) {
 		jdbc.update(UPDATE_POST_CLICK, post.getClick(), post.getId());
+	}
+
+	@Override
+	public PaginationSupport<Post> findPageById(long posterId, int pageNo, int pageSize) {
+		int totalCount = (int) countByPosterId(posterId);
+		int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
+		if (totalCount < 1)
+			return new PaginationSupport<Post>(new ArrayList<Post>(0), 0);
+		
+		List<Post> items = jdbc.query(SELECT_PAGE_POST_BY_POSTER_ID_TOPPED, new PostRowMapper(), pageSize, startIndex);
+		items.addAll(jdbc.query(SELECT_PAGE_POST_BY_POSTER_ID_UNTOPPED, new PostRowMapper(), pageSize, startIndex));
+		PaginationSupport<Post> p = new PaginationSupport<Post>(items, totalCount, pageSize, startIndex);
+		return p;
 	}
 
 }
