@@ -114,5 +114,6 @@ public class JdbcManagerRepository implements ManagerRepository {
 		this.jdbc.update(DELETE_MANAGER + "where id = ?",id);
 		return null;
 	}
+	
 
 }

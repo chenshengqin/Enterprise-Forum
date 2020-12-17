@@ -112,4 +112,17 @@ public class ManagerController {
 		
 	}
 	
+	@RequestMapping(value = "/showPoster/banPoster/{posterId}" , method = GET)
+	public String banPoster(@PathVariable("posterId")long posterId) {
+		this.posterRepository.
+		return null;
+	}
+	
+	@RequestMapping(value = "/showManager",method = GET)
+	public String showManager(Model model,
+			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+		model.addAttribute("paginationSupport",managerRepository.findPage(pageNo, pageSize));
+		return "managerShowManager";
+	}
 }

@@ -18,21 +18,17 @@
     <div class="postList">
       <h1>最近主题</h1>
       <ul class="postList">
-        <c:forEach items="${paginationSupport.items}" var="post" >
-          <li id="post_<c:out value="${post.id}"/>">
-            <div class="postName"><c:out value="${post.postName}" /></div>
-            <div class="postTime">
-              <fmt:formatDate value="${post.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-              by <c:out value="${post.poster.userName}" />
-            </div>
-            点击次数：<div class="clickTimes"><c:out value="${post.click}" /></div>
-             回帖数：<div class="replyTimes"><c:out value="${post.follow}" /></div>
+        <c:forEach items="${paginationSupport.items}" var="poster" >
+          <li id="post_<c:out value="${poster.id}"/>">
+            <div class="posterName">用户名: <c:out value="${poster.userName}" /></div>
+            |<a href="<c:url value="/manager/showPoster/banPoster/${poster.id}" />">禁言</a>
+            
 
           </li>
         </c:forEach>
       </ul>
     </div>
-    每页${paginationSupport.pageSize}条主题帖，  第${paginationSupport.currentPageNo}/${paginationSupport.totalPageCount}页,共${paginationSupport.totalCount}条主题帖
+    每页${paginationSupport.pageSize}个用户，  第${paginationSupport.currentPageNo}/${paginationSupport.totalPageCount}页,共${paginationSupport.totalCount}个用户
     <c:if test="${paginationSupport.previousPage}">
       <a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
     </c:if>
