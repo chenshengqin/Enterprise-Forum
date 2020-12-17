@@ -6,7 +6,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>主页</title>
+    <title>浏览帖子</title>
     <link rel="stylesheet" 
           type="text/css" 
           href="<c:url value="/resources/style.css" />" >
@@ -14,7 +14,6 @@
   <body>
     <c:import url="Banner.jsp"></c:import>
      
-    <hr>
     <div class="postList">
       <h1>最近主题</h1>
       <ul class="postList">
@@ -29,7 +28,12 @@
              回帖数：<div class="replyTimes"><c:out value="${post.follow}" /></div>
               | <a href="<c:url value="/posts/${post.id}" />">查看</a>
               | <a href="<c:url value="/manager/showPost/deletePost/${post.id}"/>">删帖</a> 
-              | <a href="<c:url value="/manager/showPost/putToTop/${post.id}"/>">置顶</a>
+              <c:choose>
+              	<c:when test = "${post.topped == true}">|已置顶</c:when>
+              	<c:when test = "${post.topped == false }">
+              		<a href="<c:url value="/manager/showPost/putToTop/${post.id}"/>">|置顶</a>
+              	</c:when>
+              </c:choose>
           </li>
         </c:forEach>
       </ul>

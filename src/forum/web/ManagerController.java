@@ -70,7 +70,7 @@ public class ManagerController {
 	}
 	
 	/**
-	 * 返回管理员编辑帖子界面
+	 * 返回管理员编辑帖子界面，并实现对帖子进行分页
 	 * @return
 	 */
 	
@@ -105,7 +105,7 @@ public class ManagerController {
 		return "redirect:/manager/showPost";
 	}
 	/**
-	 * 返回Poster管理界面
+	 * 返回Poster管理界面，并实现对Poster的分页服务
 	 * @param model
 	 * @param pageNo
 	 * @param pageSize
@@ -153,7 +153,7 @@ public class ManagerController {
 		return "redirect:/manager/showPost";
 	}
 	/**
-	 * 
+	 * 返回Manager列表，并实现分页服务
 	 * @param model
 	 * @param pageNo
 	 * @param pageSize
@@ -166,4 +166,5 @@ public class ManagerController {
 		model.addAttribute("paginationSupport",managerRepository.findPage(pageNo, pageSize));
 		return "managerShowManager";
 	}
+	
 }
