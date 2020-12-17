@@ -44,3 +44,39 @@ insert into Manager (username, password, truename, email, deleted) values (
 	'admin@123.com',
 	0
 );
+insert into Poster (username, password, truename, email, locked, deleted) values (
+	'user1',
+	'user1',
+	'xiaoming1',
+	'xiaoming@qq.com',
+	false,
+	false
+);
+insert into Poster (username, password, truename, email, locked, deleted) values (
+	'user2',
+	'user2',
+	'xiaoming2',
+	'xiaoming@qq.com',
+	false,
+	false
+);
+insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (
+	1,
+	'homework1',
+	'123456789123456789',
+	'2020-12-17 02:00:00',
+	0,
+	0,
+	false,
+	false
+);
+insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (
+	2,
+	'homework2',
+	'123456789123456789',
+	'2020-12-17 03:00:00',
+	1,
+	1,
+	true,
+	false
+);

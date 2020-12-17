@@ -56,13 +56,13 @@ public class PostController {
 	//}
 	
 	/**
-	 * 主题帖列表
+	 * 新建主题帖页面
 	 * 
 	 * @param count
 	 * @return
 	 */
 	@RequestMapping(value = "/newPost", method = RequestMethod.GET)
-	public String posts(Model model) {
+	public String newPost(Model model) {
 		
 		 return "newPost";
 	}
@@ -158,5 +158,22 @@ public class PostController {
 		post.setMessage(message);
 		postRepository.update(post, id);
 		return "redirect:/home";
+	}
+	
+	/**
+	 * 自己的主题帖
+	 * 
+	 * @param count
+	 * @return
+	 */
+	@RequestMapping(value = "/ownPost", method = RequestMethod.GET)
+	public String ownPosts(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize, Model model, HttpSession session) {
+		
+		Poster poster = (Poster) session.getAttribute("poster");
+		Long id = poster.getId();
+		
+		model.addAttribute("paginationSupport",postRepository.findPage(pageNo, pageSize));
+		return "ownPost";
 	}
 }

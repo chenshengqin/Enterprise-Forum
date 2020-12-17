@@ -23,8 +23,9 @@
       <a href="<c:url value="/posts/edit/${post.id}" />">编辑主题帖</a>
     </c:if>
     <a href="<c:url value="/posts" />">返回主题帖列表</a>
+    
     <div class="postList">
-      <h1>最近回复</h1>
+      <h1>最近跟帖</h1>
       <ul class="postList">
         <c:forEach items="${paginationSupport.items}" var="post" >
           <li id="post_<c:out value="${reply.id}"/>">
@@ -36,7 +37,14 @@
           </li>
         </c:forEach>
       </ul>
-      </div>
+    </div>
+    每页${paginationSupport.pageSize}条跟帖，  第${paginationSupport.currentPageNo}/${paginationSupport.totalPageCount}页,共${paginationSupport.totalCount}条跟帖
+    <c:if test="${paginationSupport.previousPage}">
+      <a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
+    </c:if>
+    <c:if test="${paginationSupport.nextPage}">
+      <a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
+    </c:if>
     
     <c:import url="Footer.jsp"></c:import>
   </body>
