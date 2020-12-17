@@ -11,7 +11,7 @@
           href="<c:url value="/resources/style.css" />" >
   </head>
   <body>
-  <c:import url="Banner.jsp"></c:import>
+    <c:import url="Banner.jsp"></c:import>
   
     <div class="postView">
       id:<div class="postId"><c:out value="${post.id}" /></div>
@@ -26,12 +26,12 @@
     </c:if>
     <a href="<c:url value="/" />">返回主题帖列表</a>
     
-    <div class="postList">
+    <div class="replyList">
       <h1>最近跟帖</h1>
-      <ul class="postList">
-        <c:forEach items="${paginationSupport.items}" var="post" >
-          <li id="post_<c:out value="${reply.id}"/>">
-            <div class="replyMessage"><c:out value="${post.message}" /></div>
+      <ul class="replyList">
+        <c:forEach items="${paginationSupport.items}" var="reply" >
+          <li id="reply_<c:out value="${reply.id}"/>">
+            <div class="replyMessage"><c:out value="${reply.message}" /></div>
             <div class="replyTime">
               <fmt:formatDate value="${reply.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
               by <c:out value="${reply.poster.userName}" />
@@ -47,6 +47,12 @@
     <c:if test="${paginationSupport.nextPage}">
       <a href="<c:url value="/posts/${post.id}?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
     </c:if>
+    
+    <br/>
+    <form method="POST">
+      跟帖回复：<br/><textarea name="replyMessage" cols="80" rows="5"></textarea><br/><br/>
+      <input type="submit" value="回复" />
+    </form>
     
     <c:import url="Footer.jsp"></c:import>
   </body>
