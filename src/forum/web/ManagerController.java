@@ -245,10 +245,24 @@ public class ManagerController {
 		managerRepository.save(manager);
 		return "redirect:/manager";
 	}
+	/**
+	 * 返回修改管理员个人信息界面
+	 * @return
+	 */
 	@RequestMapping(value = "/modify", method = GET)
 	public String modify() {
 		return "managerModify";
 	}
+	/**
+	 * 实现管理员个人信息的修改
+	 * @param manager
+	 * @param errors
+	 * @param session
+	 * @param req
+	 * @param res
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/modify" , method = POST)
 	public String processModify(@Valid Manager manager, Errors errors, HttpSession session, HttpServletRequest req, HttpServletResponse res, Model model) {
 		if (errors.hasErrors()) {
@@ -258,7 +272,10 @@ public class ManagerController {
 			manager.setTrueName("");
 		}
 		Manager nowManager = (Manager)session.getAttribute("manager");
+		manager.setDeleted(nowManager.getDeleted());
 		managerRepository.modify(nowManager.getId(),manager);
+		session.removeAttribute("manager");
+		session.setAttribute("manager", manager);
 		return "redirect:/manager";
 	}
 	
@@ -311,11 +328,15 @@ public class ManagerController {
 		boolean empty = false;
 		if(postName.equals("")) {
 			model.addAttribute("emptyPostName", "emptyPostName");
+			empty = true;
 		}
 		if(message.equals("")) {
 			model.addAttribute("emptyMessage", "emptyMessage");
+			empty = true;
 		}
 		if(empty) {
+			Post post = postRepository.findOne(postId);
+			model.addAttribute(post);
 			return "managerEditPost";
 		}
 		

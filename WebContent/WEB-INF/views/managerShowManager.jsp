@@ -30,9 +30,10 @@
       <ul class="postList">
         <c:forEach items="${paginationSupport.items}" var="manager" >
           <li id="post_<c:out value="${manager.id}"/>">
+          	<c:if test = "${sessionScope.manager.userName != manger.userName}">
             <div class="posterName">管理员用户名: <c:out value="${manager.userName}" /></div>
             <a href="<c:url value="/manager/showManager/deleteManager/${manager.id}" />">删除</a>
-
+			</c:if>
           </li>
         </c:forEach>
       </ul>
@@ -44,7 +45,8 @@
     <c:if test="${paginationSupport.nextPage}">
       <a href="<c:url value="/manager/showManager?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
     </c:if>
-    
+    <br>
+    <a href="<c:url value="/manager" />">返回首页</a>
     <c:import url="Footer.jsp"></c:import>
         <div class="htmleaf-container">
 	<div class="wrapper">
