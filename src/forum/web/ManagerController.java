@@ -77,7 +77,7 @@ public class ManagerController {
 			session.setAttribute("manager", manager);
 			return "managerHome";
 		}else {
-			return "loginError";
+			return "managerLoginError";
 		}
 	}
 	
