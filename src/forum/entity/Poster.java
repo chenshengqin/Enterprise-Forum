@@ -291,7 +291,9 @@ public class Poster {
 		if (getClass() != obj.getClass())
 			return false;
 		Poster other = (Poster) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(id, other.id) || Objects.equals(userName, other.userName);
 	}
+
+	
 
 }

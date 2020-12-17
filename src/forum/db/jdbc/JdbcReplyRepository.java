@@ -34,6 +34,8 @@ public class JdbcReplyRepository implements ReplyRepository {
 	private static final String SELECT_REPLY_BY_POST_ID = SELECT_REPLY + " and r.postId=?";
 	private static final String SELECT_PAGE_REPLYS_BY_POST_ID = SELECT_REPLY_BY_POST_ID + " order by r.postedTime desc limit ? offset  ?";
 	
+	private static final String UPDATE_REPLY = "update Reply set message=? where deleted=false and id=?";
+	
 	private static final String DELETE_REPLY = "update Reply set deleted = true";
 	
 	private static class ReplyRowMapper implements RowMapper<Reply> {
@@ -56,6 +58,11 @@ public class JdbcReplyRepository implements ReplyRepository {
 	@Override
 	public long count() {
 		return jdbc.queryForLong("select count(id) from Reply where deleted=false");
+	}
+	
+	@Override
+	public long countByPostId(long postId) {
+		return jdbc.queryForLong("select count(id) from Reply where deleted=false and postId=?", postId);
 	}
 
 	@Override
@@ -80,13 +87,13 @@ public class JdbcReplyRepository implements ReplyRepository {
 	}
 
 	@Override
-	public void delete(long id) {
-		jdbc.update(DELETE_REPLY + "where id=?", id);
+	public void deleteReply(long id) {
+		jdbc.update(DELETE_REPLY + " where id=?", id);
 	}
 
 	@Override
 	public PaginationSupport<Reply> findPage(long postId, int pageNo, int pageSize) {
-		int totalCount = (int) count();
+		int totalCount = (int) countByPostId(postId);
 		int startIndex = PaginationSupport.convertFromPageToStartIndex(pageNo, pageSize);
 		if (totalCount < 1)
 			return new PaginationSupport<Reply>(new ArrayList<Reply>(0), 0);
@@ -94,6 +101,12 @@ public class JdbcReplyRepository implements ReplyRepository {
 		List<Reply> items = jdbc.query(SELECT_PAGE_REPLYS_BY_POST_ID, new ReplyRowMapper(), postId, pageSize, startIndex);
 		PaginationSupport<Reply> r = new PaginationSupport<Reply>(items, totalCount, pageSize, startIndex);
 		return r;
+	}
+
+	@Override
+	public Reply updateReply(Reply reply, long id) {
+		jdbc.update(UPDATE_REPLY, reply.getMessage(), id);
+		return reply;
 	}
 
 }

@@ -10,7 +10,7 @@ create table Poster (
 create table Post (
 	id identity,
 	poster integer not null,
-	postname varchar(20) unique not null,
+	postname varchar(20) not null,
 	message varchar(2000) not null,
 	postedTime datetime not null,
 	follow integer not null,
@@ -76,7 +76,24 @@ insert into Post (poster, postname, message, postedTime, follow, click, topped, 
 	'123456789123456789',
 	'2020-12-17 03:00:00',
 	1,
-	0,
+	1,
 	true,
+	false
+);
+insert into Post (poster, postname, message, postedTime, follow, click, topped, deleted) values (
+	1,
+	'homework3',
+	'123456789123456789',
+	'2020-12-17 04:00:00',
+	0,
+	0,
+	false,
+	false
+);
+insert into Reply (poster, postId, message, postedTime, deleted) values (
+	1,
+	select id from Post where postname='homework2',
+	'666',
+	'2020-12-17 03:10:00',
 	false
 );

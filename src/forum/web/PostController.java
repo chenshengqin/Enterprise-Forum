@@ -79,11 +79,11 @@ public class PostController {
 	public String post(@PathVariable("postId") long postId, Model model,
 						@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
 						@RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-		//TODO
-		//解决查看主题回帖的问题
 		Post post = postRepository.findOne(postId);
-		post.setClick(post.getClick() + 1);
-		postRepository.updateClick(post);
+		if(pageNo == 1) {
+			post.setClick(post.getClick() + 1);
+			postRepository.updateClick(post);
+		}
 		model.addAttribute(post);
 		model.addAttribute("paginationSupport", replyRepository.findPage(postId, pageNo, pageSize));
 		return "post";
@@ -102,9 +102,19 @@ public class PostController {
 	@RequestMapping(value = "/newPost", method = RequestMethod.POST)
 	public String savePost(HttpServletRequest request, PostForm form, Model model, HttpSession session)
 			throws Exception {
+		boolean empty = false;
+		if(form.getPostName() == null || form.getPostName().equals("")) {
+			model.addAttribute("emptyPostName", "emptyPostName");
+		}
+		if(form.getMessage() == null || form.getMessage().equals("")) {
+			model.addAttribute("emptyMessage", "emptyMessage");
+		}
+		if(empty) {
+			return "newPost";
+		}
 		postRepository
 				.save(new Post(null, (Poster) session.getAttribute("poster"), form.getPostName(), form.getMessage(), new Date()));
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 	/**
@@ -115,7 +125,18 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{postId}", method = RequestMethod.POST)
-	public String reply(@PathVariable("postId") long postId, HttpServletRequest request, String replyMessage, Model model, HttpSession session) {
+	public String reply(@PathVariable("postId") long postId, HttpServletRequest request,
+							@RequestParam(value = "replyMessage", defaultValue = "") String replyMessage,
+							Model model, HttpSession session) {
+
+		boolean empty = false;
+		if(replyMessage.equals("")) {
+			model.addAttribute("emptyReplyMessage", "emptyReplyMessage");
+		}
+		if(empty) {
+			return "redirect:/posts/" + postId;
+		}
+		
 		replyRepository
 				.save(new Reply(null, (Poster) session.getAttribute("poster"), postId, replyMessage, new Date()));
 		Post post = postRepository.findOne(postId);
@@ -149,15 +170,26 @@ public class PostController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/edit/{postId}", method = RequestMethod.POST)
-	public String editPost(@RequestParam(value = "id", defaultValue = "") Long id,
+	public String editPost(@RequestParam(value = "id") Long id, Model model,
 							@RequestParam(value = "postName", defaultValue = "") String postName,
 							@RequestParam(value = "message", defaultValue = "") String message)
 			throws Exception {
+		boolean empty = false;
+		if(postName.equals("")) {
+			model.addAttribute("emptyPostName", "emptyPostName");
+		}
+		if(message.equals("")) {
+			model.addAttribute("emptyMessage", "emptyMessage");
+		}
+		if(empty) {
+			return "newPost";
+		}
+		
 		Post post = postRepository.findOne(id);
 		post.setPostName(postName);
 		post.setMessage(message);
-		postRepository.update(post, id);
-		return "redirect:/home";
+		postRepository.updatePost(post, id);
+		return "redirect:/";
 	}
 	
 	/**

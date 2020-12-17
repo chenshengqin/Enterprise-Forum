@@ -32,6 +32,8 @@ public class JdbcPosterRepository implements PosterRepository {
 	private static final String SELECT_PAGE_POSTERS = SELECT_POSTER + " where deleted=false limit ? offset ?";
 	
 	private static final String DELETE_POSTER = "update Poster set deleted = true";
+	
+	private static final String SET_POSTER_LOCK = "update Poster set locked = ?";
 
 	private static class PosterRowMapper implements RowMapper<Poster> {
 		public Poster mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -100,7 +102,12 @@ public class JdbcPosterRepository implements PosterRepository {
 
 	@Override
 	public void deletePoster(long id) {
-		jdbc.update(DELETE_POSTER + "where id=?", id);
+		jdbc.update(DELETE_POSTER + " where id=?", id);
+	}
+
+	@Override
+	public void setLockOrNo(long id, boolean locked) {
+		jdbc.update(SET_POSTER_LOCK + " where id=?", locked, id);
 	}
 
 }

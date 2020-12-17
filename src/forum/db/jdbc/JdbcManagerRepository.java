@@ -16,10 +16,10 @@ import forum.web.PaginationSupport;
 @Repository
 public class JdbcManagerRepository implements ManagerRepository {
 	private JdbcTemplate jdbc;
-	private static final String SELECT_MANAGER = "select id, username,password,truename,email,deleted";
+	private static final String SELECT_MANAGER = "select id, username,password,truename,email,deleted from Manager ";
 	private static final String INSERT_MANAGER = "insert into Manager (username, password, truename, email, deleted) values (?, ?, ?, ?, ?)";
 	private static final String COUNT_MANAGER = "select count(id) from Manager";
-	private static final String DELETE_MANAGER = "update Manager set deleted = true";
+	private static final String DELETE_MANAGER = "update Manager set deleted = true ";
 	private static final String UPDATE_MANAGER = "update Manager set username = ?, password = ?, fullname = ?,email = ?,phoneNo = ? where id = ?";
 	private static final String SELECT_PAGE_MANAGERS = SELECT_MANAGER + "limit ? offset ?";
 	@Autowired
@@ -114,5 +114,6 @@ public class JdbcManagerRepository implements ManagerRepository {
 		this.jdbc.update(DELETE_MANAGER + "where id = ?",id);
 		return null;
 	}
+	
 
 }

@@ -3,6 +3,11 @@
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -62,13 +67,35 @@ public class PosterController {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = POST)
-	public String processRegistration(@Valid Poster poster, Errors errors, HttpSession session) {
+	public String processRegistration(@Valid Poster poster, Errors errors, HttpSession session, HttpServletRequest req, HttpServletResponse res, Model model) {
 		if (errors.hasErrors()) {
 			return "registerForm";
 		}
 		poster.setLocked(false);
 		poster.setDeleted(false);
+		List<Poster> posterList = posterRepository.findAll();
+		for(Poster sqlPoster : posterList) {
+			if(poster.equals(sqlPoster)) {
+				model.addAttribute("errSameUserName", "errSameUserName");
+				return "registerForm";
+			}
+		}
+		
+		
 		poster = posterRepository.save(poster);
+		
+		// 保存cookie,直接覆写，并保持一致性
+		Cookie nameCookie = new Cookie("userName", poster.getUserName());
+		nameCookie.setMaxAge(20 * 60 * 60);
+		nameCookie.setPath("/EnterpriseForumSystem");
+		nameCookie.setDomain("localhost");;
+		res.addCookie(nameCookie);
+		Cookie passwordCookie = new Cookie("password", poster.getPassword());
+		passwordCookie.setMaxAge(20 * 60 * 60);
+		passwordCookie.setPath("/EnterpriseForumSystem");
+		passwordCookie.setDomain("localhost");
+		res.addCookie(passwordCookie);
+		
 		if(poster == null) {
 			System.out.println("Poster Null.");
 		}
