@@ -69,12 +69,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 				.addPathPatterns(new String[] { "/posts", "/posts/**", "/poster", "/poster/**" })// 添加拦截
 				.excludePathPatterns("/poster/register");// excludePathPatterns 排除拦截
 
-		/**
-		registry.addInterceptor(new ManagerInterceptor())
-				.addPathPatterns(new String[] { "/manager/managers", "/manager/spitters", "/manager/spittles" })// 添加拦截
-				.excludePathPatterns("/manager/register");// excludePathPatterns 排除拦截
-		*/
-
 		super.addInterceptors(registry);
 	}
 

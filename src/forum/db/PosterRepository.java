@@ -73,6 +73,12 @@ public interface PosterRepository {
 	 * @param id
 	 */
 	void deletePoster(long id);
-
+	
+	/**
+	 * 锁定指定id用户
+	 * @param id
+	 */
+	void setLockOrNo(long id, boolean locked);
+	
 }
 

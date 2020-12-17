@@ -56,7 +56,13 @@ public interface PostRepository {
 	 * 删除帖子
 	 * @param id
 	 */
-	void delete(long id);
+	void deletePost(long id);
+	
+	/**
+	 * 指定帖子置顶状态
+	 * @param id
+	 */
+	void setTopOrNo(long id, boolean topped);
 	
 	/**
 	 * 编辑帖子
@@ -64,7 +70,7 @@ public interface PostRepository {
 	 * @param id
 	 * @return 新帖
 	 */
-	Post update(Post post, long id);
+	Post updatePost(Post post, long id);
 	
 	/**
 	 * 更新跟帖
@@ -96,4 +102,5 @@ public interface PostRepository {
 	 * @return
 	 */
 	PaginationSupport<Post> findPageByPosterId(long posterId, int pageNo, int pageSize);
+	
 }
