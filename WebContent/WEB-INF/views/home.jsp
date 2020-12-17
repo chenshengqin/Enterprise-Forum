@@ -28,7 +28,7 @@
   <div class="div1">
     <c:import url="Banner.jsp"></c:import>
   
-    <a href="<c:url value="/search" />">搜索</a>
+    <a href="<c:url value="/search" />">搜索</a> | 
     <c:choose>
       <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
         <a href="<c:url value="/posts/newPost" />">新建主题帖</a> |
@@ -41,7 +41,7 @@
       <c:otherwise>
         <a href="<c:url value="/login" />">登录</a> |
         <a href="<c:url value="/poster/register" />">注册</a> |
-        <a href="<c:url value="/manager" />">管理</a> |
+        <a href="<c:url value="/manager" />">管理</a>
       </c:otherwise>
     </c:choose>
     
@@ -52,14 +52,13 @@
       <ul class="postList">
         <c:forEach items="${paginationSupport.items}" var="post" >
           <li id="post_<c:out value="${post.id}"/>">
-            <div class="postName"><c:out value="${post.postName}" /></div>
+            <div class="postName"><a href="<c:url value="/posts/${post.id}" />">${post.postName}</a></div>
             <div class="postTime">
               <fmt:formatDate value="${post.postedTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
               by <c:out value="${post.poster.userName}" />
             </div>
             点击次数：<div class="clickTimes"><c:out value="${post.click}" /></div>
              回帖数：<div class="replyTimes"><c:out value="${post.follow}" /></div>
-              | <a href="<c:url value="/posts/${post.id}" />">查看</a>
           </li>
         </c:forEach>
       </ul>
@@ -75,8 +74,6 @@
     <c:import url="Footer.jsp"></c:import>
    <div class="htmleaf-container">
 	<div class="wrapper">
-
-		
 		<ul class="bg-bubbles">
 			<li></li>
 			<li></li>
@@ -90,7 +87,7 @@
 			<li></li>
 		</ul>
 	</div>
-</div>
+	</div>
 </div>
   </body>
 </html>
