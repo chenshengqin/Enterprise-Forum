@@ -5,15 +5,25 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 <taglib>
 	<tlib-version>1.0</tlib-version>
 	<jsp-version>2.0</jsp-version>
-	<short-name>mytag</short-name>
+	<short-name>MyTag</short-name>
   
 	<uri>MyTag</uri>
 	<tag>
-	  <name>colorSelect</name>
-	  <tag-class>forum.tag.PostFilter</tag-class>
+	  <name>PostFilter</name>
+	  <tag-class>forum.tag.PostFilterTag</tag-class>
 	  <body-content>empty</body-content>
 	  <attribute>
 	    <name>postList</name>
+	    <required>true</required>
+	    <rtexprvalue>true</rtexprvalue>
+	  </attribute>
+	  <attribute>
+	    <name>searchText</name>
+	    <required>true</required>
+	    <rtexprvalue>true</rtexprvalue>
+	  </attribute>
+	  <attribute>
+	    <name>pageNo</name>
 	    <required>true</required>
 	    <rtexprvalue>true</rtexprvalue>
 	  </attribute>

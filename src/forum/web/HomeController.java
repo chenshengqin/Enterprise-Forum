@@ -126,12 +126,12 @@ public class HomeController {
 	 * @return
 	 */
 	@RequestMapping(value = "/search", method = POST)
-	public String getSearch(Model model,
+	public String getSearch(Model model, HttpSession session,
 			@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
 			@RequestParam(value = "searchText", defaultValue = "1") String searchText) {
-		
-		
+		session.setAttribute("pageNo", pageNo);
+		session.setAttribute("searchText", searchText);
 		model.addAttribute(postRepository.findAll());
 		
 		return "search";
