@@ -202,7 +202,7 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = "/ownPost", method = RequestMethod.GET)
-	public String ownPosts(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+	public String ownPost(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
 			@RequestParam(value = "pageSize", defaultValue = "10") int pageSize, Model model, HttpSession session) {
 		Poster poster = (Poster) session.getAttribute("poster");
 		Long id = poster.getId();

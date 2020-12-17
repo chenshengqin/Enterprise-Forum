@@ -69,10 +69,10 @@
     </div>
     每页${paginationSupport.pageSize}条主题帖，  第${paginationSupport.currentPageNo}/${paginationSupport.totalPageCount}页,共${paginationSupport.totalCount}条主题帖
     <c:if test="${paginationSupport.previousPage}">
-      <a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
+      <a href="<c:url value="/search?pageNo=${paginationSupport.currentPageNo-1}" />" >上一页</a> 
     </c:if>
     <c:if test="${paginationSupport.nextPage}">
-      <a href="<c:url value="/home?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
+      <a href="<c:url value="/search?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
     </c:if>
     
     <c:import url="Footer.jsp"></c:import>
