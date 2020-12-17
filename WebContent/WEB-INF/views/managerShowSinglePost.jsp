@@ -67,7 +67,8 @@
     <c:if test="${paginationSupport.nextPage}">
       <a href="<c:url value="/manager/showPost/${post.id}?pageNo=${paginationSupport.currentPageNo+1}" />" >下一页</a>
     </c:if>
-    
+    <br>
+    <a href="<c:url value="/manager" />">返回首页</a>
     <c:import url="Footer.jsp"></c:import>
     <div class="htmleaf-container">
 	<div class="wrapper">

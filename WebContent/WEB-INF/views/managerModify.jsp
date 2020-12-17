@@ -41,7 +41,8 @@
      
     <input type="submit" value="确认修改" />
     </sf:form>
-    
+    <br>
+    <a href="<c:url value="/manager" />">返回首页</a>
     <c:import url="Footer.jsp"></c:import>
         <div class="htmleaf-container">
 	<div class="wrapper">

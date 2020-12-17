@@ -40,7 +40,8 @@
 	 密码：<sf:password  path="password" /><sf:errors path="password" cssClass="error"/><br/><br/>
     <input type="submit" value="注册" />
     </sf:form>
-    
+    <br>
+    <a href="<c:url value="/manager" />">返回首页</a>
     <c:import url="Footer.jsp"></c:import>
         <div class="htmleaf-container">
 	<div class="wrapper">
