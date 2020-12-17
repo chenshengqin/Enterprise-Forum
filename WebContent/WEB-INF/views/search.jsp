@@ -15,6 +15,7 @@
   <body>
     <c:import url="Banner.jsp"></c:import>
     
+    <a href="<c:url value="/" />">主页</a>
     <form method="POST">
       <input type="text" name="searchText" /><br/>
       <input type="submit" value="搜索" />
