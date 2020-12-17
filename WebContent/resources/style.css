@@ -1,9 +1,8 @@
-body {
+﻿body {
 	font-family: sans-serif;
 }
 
-/**
-.spittleList h1 {
+/*.spittleList h1 {
 	font-size: 20pt;
 }
 
@@ -35,8 +34,8 @@ body {
 
 .spittleForm h1 {
 	font-size: 16pt;
-}*/
-
+}
+*/s
 span.error{
-	color: red;
+	color: red;	
 }
