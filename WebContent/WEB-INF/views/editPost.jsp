@@ -26,7 +26,7 @@
         <input type="submit" value="编辑主题帖" />
       </form>
     </div>
-    <a href="<c:url value="/" />">返回主题帖与跟帖页面</a>
+    <a href="<c:url value="/posts/${post.id}" />">返回主题帖与跟帖页面</a>
       
     <c:import url="Footer.jsp"></c:import>
   </body>
