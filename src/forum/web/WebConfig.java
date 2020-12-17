@@ -65,17 +65,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 
-		/**
-		registry.addInterceptor(new SpittlerInterceptor())
-				.addPathPatterns(new String[] { "/spittles", "/spittles/**", "/spitter", "/spitter/**" })// 添加拦截
-				.excludePathPatterns("/spitter/register");// excludePathPatterns 排除拦截
+		registry.addInterceptor(new PosterInterceptor())
+				.addPathPatterns(new String[] { "/posts", "/posts/**", "/poster", "/poster/**" })// 添加拦截
+				.excludePathPatterns("/poster/register");// excludePathPatterns 排除拦截
 
+		/**
 		registry.addInterceptor(new ManagerInterceptor())
 				.addPathPatterns(new String[] { "/manager/managers", "/manager/spitters", "/manager/spittles" })// 添加拦截
 				.excludePathPatterns("/manager/register");// excludePathPatterns 排除拦截
 		*/
 
-		//super.addInterceptors(registry);
+		super.addInterceptors(registry);
 	}
 
 }

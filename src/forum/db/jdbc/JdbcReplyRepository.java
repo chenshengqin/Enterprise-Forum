@@ -2,6 +2,7 @@ package forum.db.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,11 @@ public class JdbcReplyRepository implements ReplyRepository {
 			String email = rs.getString("email");
 			Poster poster = new Poster(posterId, userName, password, trueName, email);
 			
-			return new Reply(rs.getLong("id"), poster, rs.getLong("postId"), rs.getString("message"), rs.getTimestamp("postedTime"));
+			long id = rs.getLong("id");
+			long postId = rs.getLong("postId");
+			String message = rs.getString("message");
+			Timestamp postedTime = rs.getTimestamp("postedTime");
+			return new Reply(id, poster, postId, message, postedTime);
 		}
 	}
 	
@@ -86,7 +91,7 @@ public class JdbcReplyRepository implements ReplyRepository {
 		if (totalCount < 1)
 			return new PaginationSupport<Reply>(new ArrayList<Reply>(0), 0);
 		
-		List<Reply> items = jdbc.query(SELECT_PAGE_REPLYS_BY_POST_ID, new ReplyRowMapper(), postId);
+		List<Reply> items = jdbc.query(SELECT_PAGE_REPLYS_BY_POST_ID, new ReplyRowMapper(), postId, pageSize, startIndex);
 		PaginationSupport<Reply> r = new PaginationSupport<Reply>(items, totalCount, pageSize, startIndex);
 		return r;
 	}
