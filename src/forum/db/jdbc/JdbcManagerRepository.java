@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import forum.db.ManagerRepository;
 import forum.entity.Manager;
+import forum.entity.Poster;
 import forum.web.PaginationSupport;
 @Repository
 public class JdbcManagerRepository implements ManagerRepository {
@@ -21,7 +22,7 @@ public class JdbcManagerRepository implements ManagerRepository {
 	private static final String COUNT_MANAGER = "select count(id) from Manager";
 	private static final String DELETE_MANAGER = "update Manager set deleted = true ";
 	private static final String UPDATE_MANAGER = "update Manager set username = ?, password = ?, fullname = ?,email = ?,phoneNo = ? where id = ?";
-	private static final String SELECT_PAGE_MANAGERS = SELECT_MANAGER + "limit ? offset ?";
+	private static final String SELECT_PAGE_MANAGERS = SELECT_MANAGER + " where deleted = false limit ? offset ?";
 	@Autowired
 	public JdbcManagerRepository(JdbcTemplate jdbc) {
 		this.jdbc = jdbc;
@@ -90,7 +91,8 @@ public class JdbcManagerRepository implements ManagerRepository {
 		if(totalCount < 1)
 			return new PaginationSupport<Manager>(new ArrayList<Manager>(0),0);
 		List<Manager> items = jdbc.query(SELECT_PAGE_MANAGERS, new ManagerRowMapper(),pageSize, startIndex);
-		return null;
+		PaginationSupport<Manager> ps = new PaginationSupport<Manager>(items, totalCount, pageSize, startIndex);
+		return ps;
 	}
 
 	@Override
@@ -114,6 +116,15 @@ public class JdbcManagerRepository implements ManagerRepository {
 		this.jdbc.update(DELETE_MANAGER + "where id = ?",id);
 		return null;
 	}
-	
+	@Override
+	public List<Manager> findAll() {
+		// TODO Auto-generated method stub
+		return jdbc.query(SELECT_MANAGER + " where deleted=false" + " order by id", new ManagerRowMapper());
+	}
+	@Override
+	public Manager modify(long managerId,Manager modifiedManager) {
+		this.jdbc.update(UPDATE_MANAGER,modifiedManager.getUserName(),modifiedManager.getPassword(),modifiedManager.getTrueName(),modifiedManager.getEmail(),modifiedManager.getDeleted());
+		return this.jdbc.queryForObject(SELECT_MANAGER + "where id = ?", new ManagerRowMapper(), managerId);
+	}
 
 }

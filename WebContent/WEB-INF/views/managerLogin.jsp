@@ -9,9 +9,10 @@
     <link rel="stylesheet" type="text/css" 
           href="<c:url value="/ex5/resources/style.css" />" >
   </head>
+  
   <body>
  
-  
+  	<c:import url="Banner.jsp"></c:import>
     <h1>管理员登录</h1>
     <form method="POST">
       用户名: <input type="text" name="userName" /><br/><br/>

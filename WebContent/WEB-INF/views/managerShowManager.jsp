@@ -6,7 +6,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>主页</title>
+    <title>管理员列表</title>
     <link rel="stylesheet" 
           type="text/css" 
           href="<c:url value="/resources/style.css" />" >
@@ -20,7 +20,7 @@
         <c:forEach items="${paginationSupport.items}" var="manager" >
           <li id="post_<c:out value="${manager.id}"/>">
             <div class="posterName">管理员用户名: <c:out value="${manager.userName}" /></div>
-            |<a href="<c:url value="/manager/showManager/deleteManager/${manager.id}" />">删除</a>
+            <a href="<c:url value="/manager/showManager/deleteManager/${manager.id}" />">删除</a>
 
           </li>
         </c:forEach>

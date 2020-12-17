@@ -201,26 +201,11 @@ public class Manager {
 		this.deleted = deleted;
 	}
 
-	/**
-	 * 哈希码
-	 * 
-	 * @Title: hashCode
-	 * @return
-	 * @see java.lang.Object#hashCode()
-	 */  
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @Title: equals
-	 * @param obj
-	 * @return
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */  
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -230,7 +215,11 @@ public class Manager {
 		if (getClass() != obj.getClass())
 			return false;
 		Manager other = (Manager) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(id, other.id) || Objects.equals(userName, other.userName);
 	}
+	
+	
+
+
 	
 }

@@ -1,6 +1,9 @@
 package forum.db;
 
+import java.util.List;
+
 import forum.entity.Manager;
+import forum.entity.Poster;
 import forum.web.PaginationSupport;
 
 /**
@@ -93,4 +96,8 @@ public interface ManagerRepository {
 	 * @return
 	 */
 	Manager deleteByID(Long id);
+
+	List<Manager> findAll();
+	
+	public Manager modify(long managerId,Manager modifiedManager);
 }

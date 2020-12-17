@@ -6,7 +6,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>主页</title>
+    <title>用户列表</title>
     <link rel="stylesheet" 
           type="text/css" 
           href="<c:url value="/resources/style.css" />" >
@@ -14,9 +14,8 @@
   <body>
     <c:import url="Banner.jsp"></c:import>
      
-    <hr>
     <div class="postList">
-      <h1>最近主题</h1>
+      <h1>用户列表</h1>
       <ul class="postList">
         <c:forEach items="${paginationSupport.items}" var="poster" >
           <li id="post_<c:out value="${poster.id}"/>">

@@ -3,6 +3,7 @@ package forum.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,12 +11,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import forum.db.ManagerRepository;
 import forum.db.PostRepository;
 import forum.db.PosterRepository;
 import forum.entity.Manager;
+import forum.entity.Poster;
 
 /**
  * 管理员控制类
@@ -167,4 +175,79 @@ public class ManagerController {
 		return "managerShowManager";
 	}
 	
+	/**
+	 * 实现删除管理员功能
+	 * @param managerId
+	 * @return
+	 */
+	@RequestMapping(value = "/showManager/deleteManager/{managerId}" , method = GET)
+	public String deleteManager(@PathVariable("managerId")long managerId) {
+		this.managerRepository.deleteByID(managerId);
+		return "redirect:/manager/showManager";
+	}
+	/**
+	 * 实现了管理员注销功能
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/logout" , method = GET)
+	public String logout(HttpSession session) {
+		if(session.getAttribute("manager") != null) {
+			session.removeAttribute("manager");
+		}
+		return "home";
+	}
+	/**
+	 * 返回了添加管理员界面
+	 * @return
+	 */
+	@RequestMapping(value = "/register" , method = GET)
+	public String register() {
+		return "managerRegisterForm";
+	}
+	/**
+	 * 实现管理员添加管理员功能
+	 * @param manager
+	 * @param errors
+	 * @param session
+	 * @param req
+	 * @param res
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/register", method = POST)
+	public String processRegistration(@Valid Manager manager, Errors errors, HttpSession session, HttpServletRequest req, HttpServletResponse res, Model model) {
+		if (errors.hasErrors()) {
+			return "managerRegisterForm";
+		}
+		if(manager.getTrueName() == null) {
+			manager.setTrueName("");
+		}
+		manager.setDeleted(false);
+		List<Manager> managerList = managerRepository.findAll();
+		for(Manager sqlManager : managerList) {
+			if(manager.equals(sqlManager)) {
+				model.addAttribute("errSameUserName", "errSameUserName");
+				return "managerRegisterForm";
+			}
+		}
+		managerRepository.save(manager);
+		return "redirect:/manager";
+	}
+	@RequestMapping(value = "/modify", method = GET)
+	public String modify() {
+		return "managerModify";
+	}
+	@RequestMapping(value = "/modify" , method = POST)
+	public String processModify(@Valid Manager manager, Errors errors, HttpSession session, HttpServletRequest req, HttpServletResponse res, Model model) {
+		if (errors.hasErrors()) {
+			return "managerModify";
+		}
+		if(manager.getTrueName() == null) {
+			manager.setTrueName("");
+		}
+		Manager nowManager = (Manager)session.getAttribute("manager");
+		managerRepository.modify(nowManager.getId(),manager);
+		return "redirect:/manager";
+	}
 }
