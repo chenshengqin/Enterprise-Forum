@@ -44,6 +44,13 @@ insert into Manager (username, password, truename, email, deleted) values (
 	'admin@123.com',
 	0
 );
+insert into Manager(username , password , truename, email,deleted)values(
+	'admin2',
+	'123456',
+	'adminname2',
+	'admin2@123.com',
+	0
+);
 insert into Poster (username, password, truename, email, locked, deleted) values (
 	'user1',
 	'user1',
