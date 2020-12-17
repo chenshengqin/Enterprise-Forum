@@ -12,12 +12,16 @@
   <c:import url="Banner.jsp"></c:import>
   
     <div class="postView">
+      <c:out value="${post.id}" />
       <div class="postName"><c:out value="${post.postName}" /></div>
       <div class="postMessage"><c:out value="${post.message}" /></div>
       <div>
         <span class="postTime"><c:out value="${post.postedTime}" /></span>
       </div>
     </div>
+    <c:if test="${post.postName} == ${session.userName}">
+      <a href="<c:url value="/posts/edit/${post.id}" />">编辑主题帖</a>
+    </c:if>
     <a href="<c:url value="/posts" />">返回主题帖列表</a>
     <div class="postList">
       <h1>最近回复</h1>

@@ -118,8 +118,45 @@ public class PostController {
 	public String reply(@PathVariable("postId") long postId, HttpServletRequest request, String replyMessage, Model model, HttpSession session) {
 		replyRepository
 				.save(new Reply(null, (Poster) session.getAttribute("poster"), postId, replyMessage, new Date()));
+		Post post = postRepository.findOne(postId);
+		post.setFollow(post.getFollow() + 1);
+		postRepository.updateFollow(post);
 		return "redirect:/posts/" + postId;
 	}
 
-
+	/**
+	 * 打开编辑主题帖页面
+	 * 
+	 * @param postId
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/edit/{postId}", method = RequestMethod.GET)
+	public String getEditPost(@PathVariable("postId") long postId, Model model) {
+		Post post = postRepository.findOne(postId);
+		model.addAttribute(post);
+		return "editPost";
+	}
+	
+	/**
+	 * 编辑一个主题
+	 * 
+	 * @param request
+	 * @param form
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/newPost", method = RequestMethod.POST)
+	public String editPost(@RequestParam(value = "id", defaultValue = "") Long id,
+							@RequestParam(value = "postName", defaultValue = "") String postName,
+							@RequestParam(value = "message", defaultValue = "") String message)
+			throws Exception {
+		Post post = postRepository.findOne(id);
+		post.setPostName(postName);
+		post.setMessage(message);
+		postRepository.update(post, id);
+		return "redirect:/home";
+	}
 }

@@ -21,11 +21,7 @@ public class Post {
 	private Date postedTime;
 	private int follow;
 	private int click;
-	
-	@NotNull
 	private Boolean topped;
-	
-	@NotNull
 	private Boolean deleted;
 	
 	/**
@@ -59,6 +55,10 @@ public class Post {
 		this.click = click;
 		this.topped = topped;
 		this.deleted = deleted;
+	}
+	
+	public Post(Poster poster, String postName, String message, Date postedTime) {
+		this(null, poster, postName, message, postedTime);
 	}
 	
 	/**
