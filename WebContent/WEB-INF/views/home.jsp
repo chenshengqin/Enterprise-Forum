@@ -28,20 +28,23 @@
   <div class="div1">
     <c:import url="Banner.jsp"></c:import>
   
-    
+    <a href="<c:url value="/search" />">搜索</a>
     <c:choose>
       <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
         <a href="<c:url value="/posts/newPost" />">新建主题帖</a> |
         <a href="<c:url value="/posts/ownPost" />">查看自己的主题帖</a> |
         <a href="<c:url value="/logout" />">注销</a> |
       </c:when>
+      <c:when test = "${not empty sessionScope.manager && not empty sessionScope.manager.id }">
+        <a href="<c:url value="/manager" />">管理</a>
+      </c:when>
       <c:otherwise>
         <a href="<c:url value="/login" />">登录</a> |
         <a href="<c:url value="/poster/register" />">注册</a> |
+        <a href="<c:url value="/manager" />">管理</a> |
       </c:otherwise>
     </c:choose>
-    <a href="<c:url value="/search" />">搜索</a> |
-    <a href="<c:url value="/manager" />">管理</a>
+    
     
     <hr>
     <div class="postList">
