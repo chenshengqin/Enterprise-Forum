@@ -29,7 +29,7 @@
     <h1>管理员添加</h1>
     
     <sf:form method="POST" commandName="manager">
-    <sf:errors path="*" cssClass="error"/><br/><br/>
+    
 	 姓名：<sf:input path="trueName" /><sf:errors path="trueName" cssClass="error"/><br/><br/>
 	 邮箱：<sf:input path="email" /><sf:errors path="email" cssClass="error"/><br/><br/>
 	用户名：<sf:input path="userName" /><sf:errors path="userName" cssClass="error"/>

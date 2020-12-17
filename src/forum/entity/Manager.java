@@ -27,8 +27,11 @@ public class Manager {
 	@Size(min = 5, max = 25)
 	private String password;
 	
+	@NotNull
+	@Size(min = 2, max = 30)
 	private String trueName;
 	
+	@NotNull
 	@Email
 	private String email;
 	

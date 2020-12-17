@@ -274,6 +274,8 @@ public class ManagerController {
 		Manager nowManager = (Manager)session.getAttribute("manager");
 		manager.setDeleted(nowManager.getDeleted());
 		managerRepository.modify(nowManager.getId(),manager);
+		session.removeAttribute("manager");
+		session.setAttribute("manager", manager);
 		return "redirect:/manager";
 	}
 	
