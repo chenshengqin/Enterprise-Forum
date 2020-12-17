@@ -61,7 +61,10 @@
     
     <br/>
     <form method="POST">
-      跟帖回复：<br/><textarea name="replyMessage" cols="80" rows="5"></textarea><br/><br/>
+      跟帖回复：<br/><textarea name="replyMessage" cols="80" rows="5"></textarea><br/>
+      <c:if test="${not empty emptyPostName}">
+	    <font color="#FF0000">标题为空！</font>
+	  </c:if><br/>
       <c:choose>
         <c:when test = "${not empty sessionScope.poster && not empty sessionScope.poster.id }">
           <input type="submit" value="回复" />
