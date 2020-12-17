@@ -143,8 +143,8 @@ public class JdbcPostRepository implements PostRepository {
 		if (totalCount < 1)
 			return new PaginationSupport<Post>(new ArrayList<Post>(0), 0);
 		
-		List<Post> items = jdbc.query(SELECT_PAGE_POST_BY_POSTER_ID_TOPPED, new PostRowMapper(), pageSize, startIndex);
-		items.addAll(jdbc.query(SELECT_PAGE_POST_BY_POSTER_ID_UNTOPPED, new PostRowMapper(), pageSize, startIndex));
+		List<Post> items = jdbc.query(SELECT_PAGE_POST_BY_POSTER_ID_TOPPED, new PostRowMapper(), posterId, pageSize, startIndex);
+		items.addAll(jdbc.query(SELECT_PAGE_POST_BY_POSTER_ID_UNTOPPED, new PostRowMapper(), posterId, pageSize, startIndex));
 		PaginationSupport<Post> p = new PaginationSupport<Post>(items, totalCount, pageSize, startIndex);
 		return p;
 	}
