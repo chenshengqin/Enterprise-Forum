@@ -40,10 +40,10 @@
 	        <font color="#FF0000">标题为空！</font>
 	      </c:if><br/>
         内容：<c:out value="${post.message}"/><br/>
+        <textarea name="message" cols="50" rows="5"></textarea><br/><br/>
           <c:if test="${not empty emptyMessage}">
 	        <font color="#FF0000">内容为空！</font>
 	      </c:if><br/><br/>
-        <textarea name="message" cols="50" rows="5"></textarea><br/><br/>
           <input type="submit" value="编辑主题帖" />
       </form>
     </div>

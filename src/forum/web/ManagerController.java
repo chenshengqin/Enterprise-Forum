@@ -326,7 +326,7 @@ public class ManagerController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/showPost/edit/{postId}", method = RequestMethod.POST)
-	public String editPost(@RequestParam(value = "postId") Long postId, Model model,
+	public String editPost(@PathVariable("postId") Long postId, Model model,
 							@RequestParam(value = "postName", defaultValue = "") String postName,
 							@RequestParam(value = "message", defaultValue = "") String message)
 			throws Exception {
@@ -349,6 +349,6 @@ public class ManagerController {
 		post.setPostName(postName);
 		post.setMessage(message);
 		postRepository.updatePost(post, postId);
-		return "redirect:/manager/showPost/{postId}" + postId;
+		return "redirect:/manager/showPost/" + postId;
 		}
 }
