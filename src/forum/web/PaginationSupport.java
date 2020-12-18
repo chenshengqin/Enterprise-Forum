@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 分页辅助类
  * 
- * @author liyong
+ * @author CN.CSQ
  * @version 1.0
  */
 public class PaginationSupport<T> {
