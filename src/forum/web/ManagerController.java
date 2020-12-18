@@ -164,6 +164,11 @@ public class ManagerController {
 		return "redirect:/manager/showPost";
 	}
 	
+	/**
+	 * 实现取消帖子置顶功能
+	 * @param postId
+	 * @return
+	 */
 	@RequestMapping(value = "/showPost/cancelputToTop/{postId}" , method = GET)
 	public String cancelPutToTop(@PathVariable("postId")long postId) {
 		this.postRepository.setTopOrNo(postId, false);

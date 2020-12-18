@@ -97,7 +97,18 @@ public interface ManagerRepository {
 	 */
 	Manager deleteByID(Long id);
 
+	/**
+	 * 获得有效管理员列表
+	 * 
+	 */
 	List<Manager> findAll();
-	
+
+	/**
+	 * 修改管理员个人信息
+	 * 
+	 * @param id id
+	 * @param modifiedManager 存储管理员修改内容的管理员对象
+	 * @return
+	 */
 	public Manager modify(long managerId,Manager modifiedManager);
 }
